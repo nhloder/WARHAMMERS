@@ -36,7 +36,13 @@ massive(CONNECTION_STRING).then(db => {
 
 // ENDPOINTS \\
 app.get("/api/allProducts", ctrl.getAll);
-
+app.get('/api/product/:id', ctrl.getOne);
+app.get('/api/userProducts/:id', ctrl.userProducts);
+app.get('/api/comments/:id', ctrl.getComments)
+app.get('/api/user/:id', ctrl.getUser)
+app.get('/api/allUsers', ctrl.getAllUsers)
+app.get('/api/cart/:id', cartCtrl.getUserCart)
+app.post('/api/cart', cartCtrl.intoCart)
 
 
 // AMAZON S3 \\
