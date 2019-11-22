@@ -1,2 +1,3 @@
-INSERT INTO hash (hash, user_id)
-VALUES (${hash}, ${user_id})
+INSERT INTO hash (hash)
+VALUES ($1)
+returning *;

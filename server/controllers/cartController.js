@@ -29,4 +29,30 @@ module.exports = {
         console.log(err);
       });
   },
+  remove(req,res) {
+    const db = req.app.get('db')
+    db.cart.delete_from_cart(+req.params.id)
+    .then(result => {
+      res.status(200).send(result);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .send({ errorMessage: "we done goofed, try again later" });
+      console.log(err);
+    });
+  },
+  clear(req,res){
+    const db = req.app.get('db')
+    db.cart.clear_cart(+req.params.id)
+    .then(result => {
+      res.status(200).send(result);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .send({ errorMessage: "we done goofed, try again later" });
+      console.log(err);
+    });
+  }
 }

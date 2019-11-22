@@ -5,6 +5,8 @@ const session = require("express-session");
 const ctrl = require("./controllers/controller.js");
 const cartCtrl = require("./controllers/cartController.js");
 const authCtrl = require("./controllers/authController.js");
+const comCtrl = require("./controllers/commentController.js");
+const pdctCtrl = require('./controllers/productController.js');
 const {
   SERVER_PORT,
   CONNECTION_STRING,
@@ -15,8 +17,7 @@ const {
 } = process.env;
 
 const app = express();
-const aws = require('aws-sdk')
-
+const aws = require("aws-sdk");
 
 // TOP LEVEL MIDDLEWARE \\
 app.use(express.json());
@@ -35,15 +36,36 @@ massive(CONNECTION_STRING).then(db => {
 });
 
 // ENDPOINTS \\
-app.get("/api/allProducts", ctrl.getAll);
-app.get('/api/product/:id', ctrl.getOne);
-app.get('/api/userProducts/:id', ctrl.userProducts);
-app.get('/api/comments/:id', ctrl.getComments)
-app.get('/api/user/:id', ctrl.getUser)
-app.get('/api/allUsers', ctrl.getAllUsers)
-app.get('/api/cart/:id', cartCtrl.getUserCart)
-app.post('/api/cart', cartCtrl.intoCart)
 
+//Users 
+app.get("/api/user/:id", ctrl.getUser);
+app.get("/api/users", ctrl.getAllUsers);
+app.put('/api/user/:id', ctrl.editUser);
+app.delete('/api/user/:id',ctrl.deleteUser);
+
+// Products
+app.get("/api/products", pdctCtrl.getAll);
+app.get("/api/product/:id", pdctCtrl.getOne);
+app.get("/api/userProducts/:id", pdctCtrl.userProducts);
+app.post('/api/product', pdctCtrl.addProduct);
+app.put('/api/product/:id', pdctCtrl.updateProduct)
+app.delete("/api/product/:id", pdctCtrl.deleteProduct);
+
+// Cart
+app.get("/api/cart/:id", cartCtrl.getUserCart);
+app.post("/api/cart", cartCtrl.intoCart);
+app.delete("/api/cart/:id", cartCtrl.remove);
+app.delete("/api/wholeCart/:id", cartCtrl.clear);
+
+// Comments
+app.get("/api/comments/:id", comCtrl.getComments);
+app.post("/api/comments", comCtrl.addComment);
+app.delete("/api/comment/:id", comCtrl.deleteComment);
+
+//Auth
+app.post("/api/user", authCtrl.register);
+app.post('/api/login', authCtrl.login);
+app.delete('/api/logout', authCtrl.logout);
 
 // AMAZON S3 \\
 

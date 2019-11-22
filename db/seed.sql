@@ -4,11 +4,11 @@ CREATE TABLE users(
 	email VARCHAR,
 	about TEXT,
 	profile_pic TEXT,
-	is_admin BOOLEAN
+	is_admin BOOLEAN,
+	hash_id INT REFERENCES hash(hash_id)ON DELETE CASCADE
 );
 CREATE TABLE hash(
 	hash_id SERIAL PRIMARY KEY[]
-	user_id INT REFERENCES users(user_id),
 	hash TEXT
 );
 CREATE TABLE products(
