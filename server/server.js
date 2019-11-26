@@ -25,7 +25,10 @@ app.use(
   session({
     resave: false,
     saveUninitialized: false,
-    secret: SESSION_SECRET
+    secret: SESSION_SECRET,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 2
+  }
   })
 );
 
@@ -40,27 +43,28 @@ massive(CONNECTION_STRING).then(db => {
 //Users 
 app.get("/api/user/:id", ctrl.getUser);
 app.get("/api/users", ctrl.getAllUsers);
-app.put('/api/user/:id', ctrl.editUser);
+app.get('/api/userInfo', ctrl.getUserInfo)
+app.put('/api/user/:id', authCtrl.authenticate, ctrl.editUser);
 app.delete('/api/user/:id',ctrl.deleteUser);
 
 // Products
 app.get("/api/products", pdctCtrl.getAll);
 app.get("/api/product/:id", pdctCtrl.getOne);
 app.get("/api/userProducts/:id", pdctCtrl.userProducts);
-app.post('/api/product', pdctCtrl.addProduct);
-app.put('/api/product/:id', pdctCtrl.updateProduct)
-app.delete("/api/product/:id", pdctCtrl.deleteProduct);
+app.post('/api/product', authCtrl.authenticate, pdctCtrl.addProduct);
+app.put('/api/product/:id', authCtrl.authenticate, pdctCtrl.updateProduct)
+app.delete("/api/product/:id", authCtrl.authenticate, pdctCtrl.deleteProduct);
 
 // Cart
-app.get("/api/cart/:id", cartCtrl.getUserCart);
-app.post("/api/cart", cartCtrl.intoCart);
-app.delete("/api/cart/:id", cartCtrl.remove);
-app.delete("/api/wholeCart/:id", cartCtrl.clear);
+app.get("/api/cart/:id", authCtrl.authenticate, cartCtrl.getUserCart);
+app.post("/api/cart", authCtrl.authenticate, cartCtrl.intoCart);
+app.delete("/api/cart/:id", authCtrl.authenticate, cartCtrl.remove);
+app.delete("/api/wholeCart/:id", authCtrl.authenticate, cartCtrl.clear);
 
 // Comments
 app.get("/api/comments/:id", comCtrl.getComments);
-app.post("/api/comments", comCtrl.addComment);
-app.delete("/api/comment/:id", comCtrl.deleteComment);
+app.post("/api/comments", authCtrl.authenticate, comCtrl.addComment);
+app.delete("/api/comment/:id", authCtrl.authenticate, comCtrl.deleteComment);
 
 //Auth
 app.post("/api/user", authCtrl.register);

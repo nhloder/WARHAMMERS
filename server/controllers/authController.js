@@ -32,7 +32,7 @@ module.exports = {
 
     const result = bcrypt.compareSync(password, user[0].hash)
     if (result === true) {
-      req.session.user = {id: user[0].user_id, email: user[0].email}
+      req.session.user = {id: user[0].user_id, email: user[0].email, profile_pic: user[0].profile_pic, username: user[0].username}
       return res.status(200).send({message: 'Logged in', userData: req.session.user})
     } else {
       res.status(200).send({message: 'Password incorrect'})
@@ -41,5 +41,19 @@ module.exports = {
   logout: (req, res) => {
     req.session.destroy()
     res.status(200).send({message: 'Logged out'})
+  },
+  authenticate(req,res,next) {
+    if (req.session.user){
+      next()
+    }
+    else{
+      res.status(200).send(`no`)
+    }
+  },
+  adminsOnly: (req, res, next) => {
+    if (!req.session.user.isAdmin) {
+      return res.status(403).send('You are not an admin');
+    }
+    next();
   }
 }

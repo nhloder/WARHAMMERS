@@ -1,24 +1,38 @@
-header{
-   background-color: #195252;
+header {
+  background-color: #246a73;
   height: 9vh;
-  width:100vw;
+  width: 100vw;
   display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
   align-items: center;
   align-content: center;
 }
-.title{
-   display:flex;
-   flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-between;
+.title {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
   align-items: center;
   align-content: center;
   color: white;
 }
-img{
-   max-width: 35px;
-   max-height: 35px;
+img {
+  max-width: 4vw;
+  max-height: 4vh;
+}
+.username{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+	align-content: space-around;
+  color: white;
+}
+.profilepic {
+  border-radius: 50%;
+  max-width: 5vw;
+  max-height: 5vh;
 }

@@ -1,3 +1,8 @@
+body{
+  background:
+  /* #AC867D; */
+  #DDBEA8
+}
 Header{
   position: sticky;
   z-index: 1;
@@ -6,7 +11,8 @@ Header{
 
 footer{
   position: bottom fixed;
-
   max-height:9vh;
-
+  /* right: 0rem;
+  left:0rem;
+  bottom:0rem; */
 }

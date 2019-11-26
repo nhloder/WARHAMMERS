@@ -1,8 +1,16 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Login from "../../profile/Login";
+import axios from 'axios'
 
 class Nav extends Component {
+
+  logout(){
+    axios.delete('/api/logout')
+    .then(
+       this.props.history.push('/'),
+       window.location.reload()
+    )
+ }
   render() {
     return (
       <div>
@@ -21,6 +29,7 @@ class Nav extends Component {
         <Link to="/login">
           <button>Login</button>
         </Link>
+        <button onClick = {() => this.logout()}>Logout</button>
       </div>
     );
   }

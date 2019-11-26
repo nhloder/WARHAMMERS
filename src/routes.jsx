@@ -9,6 +9,7 @@ import NewHammer from "./components/products/NewHammer";
 import EditHammer from "./components/products/EditHammer";
 import OneHammer from "./components/products/OneHammer";
 import Cart from "./components/cart/Cart";
+import MyProfile from './components/profile/MyProfile'
 
 export default (
   <Switch>
@@ -16,7 +17,8 @@ export default (
     <Route path="/login" component={Login} />
     <Route path="/register" component={Register} />
     <Route path="/edit-profile" component={EditProfile} />
-    <Route path="/my-profile" component={Profile} />
+    <Route path="/profile" component={Profile} />
+    <Route path="/my-profile" component={MyProfile} />
     <Route path="/new-hammer" component={NewHammer} />
     <Route path="/edit-hammer" component={EditHammer} />
     <Route path="/one-hammer" component={OneHammer} />

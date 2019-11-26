@@ -48,24 +48,26 @@ module.exports = {
 
   deleteUser(req, res) {
     const db = req.app.get("db");
-    // db.users.get_all_from_user(+req.params.id)
-    db.users
-      .delete_user_products(+req.params.id)
-      // .then(() => {
-      //   db.hash.delete_hash(+req.params.id);
-      //   console.log("IT WILL BE DONE MY LORD");
-      // })80
-      .then(() => {
-        db.users.delete_user(+req.params.id).then(() => {
-          res.status(200).send({ message: "sorry to see you go" });
-          
-        });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .send({ errorMessage: "we done goofed, try again later" });
-        console.log(err);
-      });
-  }
-};
+    db.products.delete_user_products(+req.params.id)
+    .then(db.comments.delete_user_comments(+req.params.id)
+    .then(db.cart.clear_cart(+req.params.id)
+    .then(db.hash.delete_hash(+req.params.id)
+    .then(db.users.delete_user(+req.params.id)))))
+    
+    .then(
+      res.status(200).send({message:'sorry to see you go'})
+    ).catch(err => {
+      res
+        .status(500)
+        .send({ errorMessage: "we done goofed, try again later" });
+      console.log(err);
+    });
+  },
+  getUserInfo(req,res){
+    if(req.session.user){
+      return res.status(200).send(req.session.user)
+    }
+    else (res.status(412).send({message:'please login first'}))
+  },
+  
+}

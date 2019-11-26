@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { v4 as randomString } from 'uuid';
-import Dropzone from 'react-dropzone';
-import { GridLoader } from 'react-spinners';
+// import { v4 as randomString } from 'uuid';
+// import Dropzone from 'react-dropzone';
+// import { GridLoader } from 'react-spinners';
 
 class NewHammer extends Component {
    render() {
