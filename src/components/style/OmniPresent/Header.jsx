@@ -75,8 +75,8 @@ class Header extends Component {
         </nav>
         {this.state.username ? 
         <div className="user">
-          <img className="profilepic" src={this.state.profile} alt="oops" />
-          <p> Welcome Back: {this.state.username}</p>
+          <Link to = '/my-profile'><img className="profilepic" src={this.state.profile} alt="oops" /></Link>
+          <p> Welcome Back: <br/>{this.state.username}</p>
         </div>:
         null
       }

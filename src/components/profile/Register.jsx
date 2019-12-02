@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { connect } from "react-redux";
-import { updateUserInfo } from '../../dux/reducer';
+import { updateUserInfo } from "../../dux/reducer";
 // import Dropzone from "react-dropzone";
 // import { GridLoader } from "react-spinners";
 // import { v4 as randomString } from "uuid";
@@ -26,34 +26,59 @@ class Register extends Component {
   }
 
   finalize = () => {
-    const {email, username, password, password2, profile_pic, about, is_admin } = this.state;
-    if (email && username && password && password2 && profile_pic && about && password === password2){
-      axios.post('/api/user', this.state)
-      .then(res => {
-        this.props.updateUserInfo(res.data.user);
-        this.success();
-      }).catch(err => {
-        Swal.fire({
-          icon: "error",
-          title: "Whoops!",
-          text: err.response.data.message,
-          confirmButtonText: "Try again"
+    const {
+      email,
+      username,
+      password,
+      password2,
+      profile_pic,
+      about,
+      is_admin
+    } = this.state;
+    if (
+      email &&
+      username &&
+      password &&
+      password2 &&
+      profile_pic &&
+      about &&
+      password === password2
+    ) {
+      axios
+        .post("/api/user", this.state)
+        .then(
+          axios.post("/api/login", {
+            email: email,
+            password: password
+          })
+        )
+        .then(res => {
+          this.props.updateUserInfo(res.data.user);
+          this.success();
+        })
+        .catch(err => {
+          Swal.fire({
+            icon: "error",
+            title: "Whoops!",
+            text: err.response.data.message,
+            confirmButtonText: "Try again"
+          });
         });
-      })
-    } else if(password && password !== password2) {
+    } else if (password && password !== password2) {
       Swal.fire({
-        icon: 'error',
-        text:'passwords must match',
+        icon: "error",
+        text: "passwords must match",
         confirmButtonText: "Try again"
-        })
-    } else if (!email || !username || !password || !password2 || !about){
+      });
+    } else if (!email || !username || !password || !password2 || !about) {
       Swal.fire({
-        icon: 'error',
-        text:'Must fill out all fields',
+        icon: "error",
+        text: "Must fill out all fields",
         confirmButtonText: "Try again"
-        })
+      });
     }
-  }
+  };
+  
   success() {
     Swal.fire({
       icon: "success",
@@ -66,7 +91,7 @@ class Register extends Component {
       }
     });
   }
-  
+
   handleUsername(e) {
     this.setState({
       username: e.target.value
@@ -108,39 +133,39 @@ class Register extends Component {
     return (
       <div className="register">
         <div className="top">
-        <div className="name">
-          <p>Username: </p>
-          <input
-            type="text"
-            placeholder="Username"
-            onChange={e => this.handleUsername(e)}
-          />
-          {/* <br /> */}
-          <p>E-mail:</p>
-          <input
-            type="text"
-            placeholder="e-mail"
-            onChange={e => this.handleEmail(e)}
-          />
+          <div className="name">
+            <p>Username: </p>
+            <input
+              type="text"
+              placeholder="Username"
+              onChange={e => this.handleUsername(e)}
+            />
+            {/* <br /> */}
+            <p>E-mail:</p>
+            <input
+              type="text"
+              placeholder="e-mail"
+              onChange={e => this.handleEmail(e)}
+            />
           </div>
           <div className="password">
-          <p>Password: </p>
-          <input
-            type="password"
-            placeholder="Password"
-            onChange={e => this.handlePassword(e)}
-          />
+            <p>Password: </p>
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={e => this.handlePassword(e)}
+            />
 
-          <p>Confirm Password: </p>
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            onChange={e => this.handlePassword2(e)}
-          />
+            <p>Confirm Password: </p>
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              onChange={e => this.handlePassword2(e)}
+            />
           </div>
         </div>
         <br />
-        <br/>
+        <br />
 
         <div className="login">
           <span>Already have an account?</span>
@@ -195,7 +220,9 @@ class Register extends Component {
           </div>
         </div>
         <br />
-        <button className="registerButton" onClick = {() => this.finalize()}>Register</button>
+        <button className="registerButton" onClick={() => this.finalize()}>
+          Register
+        </button>
       </div>
     );
   }
