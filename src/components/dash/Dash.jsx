@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "../style/cssFiles/dash.css";
+// import Footer from "../style/OmniPresent/Footer";
 
 class Dash extends Component {
   constructor() {
@@ -64,10 +65,14 @@ class Dash extends Component {
             <button className="dashBut">Add to cart</button>
           </div>
           <hr />
+          <br/>
         </div>
       );
     });
-    return <div>{inventoryList}</div>;
+    return (<div>
+    {inventoryList}
+    
+    </div>);
   }
 }
 

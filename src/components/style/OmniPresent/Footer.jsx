@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Nav from "./Nav";
+// import Nav from "./Nav";
 import "../cssFiles/footer.css";
+import Swal from 'sweetalert2'
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -28,7 +29,19 @@ class Footer extends Component {
   logout() {
     axios
       .delete("/api/logout")
-      .then(this.props.history.push("/"), window.location.reload());
+      .then(this.loggedOut())
+  }
+  loggedOut() {
+    Swal.fire({
+      icon: "warning",
+      title: "Logged Out.",
+      text: "Come Back Soon!",
+      confirmButtonText: "Continue"
+    }).then(result => {
+      if (result.value) {
+        window.location.reload();
+      }
+    });
   }
 
   render() {

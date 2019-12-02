@@ -1,6 +1,6 @@
 header {
   background-color: #246a73;
-  height: 9vh;
+  height: 95px;
   width: 100vw;
   display: flex;
   flex-direction: row;
@@ -22,7 +22,7 @@ img {
   max-width: 4vw;
   max-height: 4vh;
 }
-.username{
+.user{
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;

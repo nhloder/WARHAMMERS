@@ -1,0 +1,75 @@
+.register{
+  display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: center;
+  align-content: space-around;
+  padding: 2vh;
+  max-width: 100%;
+}
+.top{
+  display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: center;
+	align-content: stretch;
+}
+.name{
+  margin-right: 8px;
+}
+.password{
+  margin-left: 8px;
+}
+.login{
+  display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: center;
+	align-content: space-around;
+}
+.loginButton{
+  background-color:#F3DFC1;
+  height: 30px;
+  width: 80px;
+}
+.boxContainer{
+  display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: center;
+	align-content: stretch;
+}
+.leftBox{
+  display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: center;
+	align-content: stretch;
+  margin: 8px;
+}
+.about{
+  font-size: 16px;
+  resize: none;
+  height:300px;
+  width: 400px;
+}
+.rightBox{
+  min-width: 400px;
+  margin: 8px;
+}
+.newProfilePic{
+/* min-width: 400px;
+min-height: 300px; */
+max-width: 450px;
+max-height: 450px;
+}
+.registerButton{
+  background-color:#F3DFC1;
+  height: 30px;
+  width: 80px;
+}

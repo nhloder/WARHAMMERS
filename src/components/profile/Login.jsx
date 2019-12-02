@@ -35,7 +35,7 @@ class Login extends Component {
       icon: "success",
       title: "Logged in!",
       text: "Welcome back",
-      confirmButtonText: "Continue."
+      confirmButtonText: "Continue"
     }).then(result => {
       if (result.value) {
         this.props.history.push("/");
@@ -75,6 +75,7 @@ class Login extends Component {
           />
           <p>Password:</p>
           <input type="password" onChange={e => this.handlePass(e)} />
+          <br/>
           <button onClick={() => this.login()}>Login</button>
           <p>Not a member?</p>
           <Link to="/register">

@@ -1,18 +1,24 @@
-body{
+body {
   background:
-  /* #AC867D; */
-  #DDBEA8
+  /* #AC867D; */ #ddbea8;
+  
 }
-Header{
+.App{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+header {
   position: sticky;
   z-index: 1;
-  top:0px;
+  top: 0px;
 }
 
-footer{
-  position: bottom fixed;
-  max-height:9vh;
-  /* right: 0rem;
-  left:0rem;
-  bottom:0rem; */
+footer {
+  position: absolute;
+  max-height: 9vh;
+  right: 0rem;
+  left: 0rem;
+  bottom: 0px;
+  overflow: hidden;
 }

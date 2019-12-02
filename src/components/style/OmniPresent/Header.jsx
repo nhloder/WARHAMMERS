@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import Nav from "./Nav";
+// import Nav from "./Nav";
 import "../cssFiles/header.css";
 import axios from "axios";
+import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 
 class Header extends Component {
@@ -28,7 +29,19 @@ class Header extends Component {
   logout() {
     axios
       .delete("/api/logout")
-      window.location.reload();
+      .then(this.loggedOut())
+  }
+  loggedOut() {
+    Swal.fire({
+      icon: "warning",
+      title: "Logged Out.",
+      text: "Come Back Soon!",
+      confirmButtonText: "Continue"
+    }).then(result => {
+      if (result.value) {
+        window.location.reload();
+      }
+    });
   }
 
   render() {
@@ -60,10 +73,13 @@ class Header extends Component {
           </Link> :
           <button onClick={() => this.logout()}>Logout</button>}
         </nav>
-        <div className="username">
+        {this.state.username ? 
+        <div className="user">
           <img className="profilepic" src={this.state.profile} alt="oops" />
           <p> Welcome Back: {this.state.username}</p>
-        </div>
+        </div>:
+        null
+      }
       </header>
     );
   }
