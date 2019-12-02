@@ -4,13 +4,15 @@ import "../cssFiles/header.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
       profile: "",
-      username: ""
+      username: "",
+      authenticated: false
     };
   }
   componentDidMount() {
@@ -20,16 +22,15 @@ class Header extends Component {
     axios.get("/api/userInfo").then(res => {
       this.setState({
         profile: res.data.profile_pic,
-        username: res.data.username
+        username: res.data.username,
+        authenticated: true
       });
       // console.log(res.data);
-    })
+    });
   }
 
   logout() {
-    axios
-      .delete("/api/logout")
-      .then(this.loggedOut())
+    axios.delete("/api/logout").then(this.loggedOut());
   }
   loggedOut() {
     Swal.fire({
@@ -42,6 +43,40 @@ class Header extends Component {
         window.location.reload();
       }
     });
+  }
+
+  holUpProfile() {
+    if (this.state.authenticated === true) {
+      this.props.history.push("/my-profile");
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Fuck outta here Bruh.",
+        text: "please log in",
+        confirmButtonText: "Continue"
+      }).then(result => {
+        if (result.value) {
+          this.props.history.push("/");
+        }
+      });
+    }
+  }
+
+  holUpCart() {
+    if (this.state.authenticated === true) {
+      this.props.history.push("/cart");
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Fuck outta here Bruh.",
+        text: "please log in",
+        confirmButtonText: "Continue"
+      }).then(result => {
+        if (result.value) {
+          this.props.history.push("/");
+        }
+      });
+    }
   }
 
   render() {
@@ -60,31 +95,36 @@ class Header extends Component {
             <button>Home</button>
           </Link>
 
-          <Link to="/my-profile">
-            <button>My Profile</button>
-          </Link>
+          <button onClick={() => this.holUpProfile()}>My Profile</button>
 
-          <Link to="/cart">
-            <button>Cart</button>
-          </Link>
+            <button onClick={() => this.holUpCart()}>Cart</button>
 
-          {!this.state.username ? <Link to="/login">
-            <button>Login</button>
-          </Link> :
-          <button onClick={() => this.logout()}>Logout</button>}
+
+          {!this.state.username ? (
+            <Link to="/login">
+              <button>Login</button>
+            </Link>
+          ) : (
+            <button onClick={() => this.logout()}>Logout</button>
+          )}
         </nav>
-        {this.state.username ? 
-        <div className="user">
-          <Link to = '/my-profile'><img className="profilepic" src={this.state.profile} alt="oops" /></Link>
-          <p> Welcome Back: <br/>{this.state.username}</p>
-        </div>:
-        null
-      }
+        {this.state.username ? (
+          <div className="user">
+            <Link to="/my-profile">
+              <img className="profilepic" src={this.state.profile} alt="oops" />
+            </Link>
+            <p>
+              {" "}
+              Welcome Back: <br />
+              {this.state.username}
+            </p>
+          </div>
+        ) : null}
       </header>
     );
   }
 }
 
-export default Header;
+export default withRouter(Header);
 
 // alt src = "https://war-hammers-r-us.s3-us-west-1.amazonaws.com/download.jpeg"
