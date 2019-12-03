@@ -121,5 +121,19 @@ module.exports = {
           .send({ errorMessage: "we done goofed, try again later" });
         console.log(err);
       });
+  },
+  myProducts(req,res){
+    const db = req.app.get("db");
+    db.users
+      .get_user_products(+req.session.user.id)
+      .then(result => {
+        res.status(200).send(result);
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .send({ errorMessage: "we done goofed, try again later" });
+        console.log(err);
+      });
   }
 };

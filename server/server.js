@@ -19,7 +19,6 @@ const {
 
 const app = express();
 
-
 // TOP LEVEL MIDDLEWARE \\
 app.use(express.json());
 app.use(
@@ -52,13 +51,14 @@ app.delete("/api/user/:id", userCtrl.deleteUser);
 app.get("/api/products", pdctCtrl.getAll);
 app.get("/api/product/:id", pdctCtrl.getOne);
 app.get("/api/userProducts/:id", pdctCtrl.userProducts);
+app.get("/api/myProducts", authCtrl.authenticate, pdctCtrl.myProducts);
 app.post("/api/product", authCtrl.authenticate, pdctCtrl.addProduct);
 app.put("/api/product/:id", authCtrl.authenticate, pdctCtrl.updateProduct);
 app.delete("/api/product/:id", authCtrl.authenticate, pdctCtrl.deleteProduct);
 
 // Cart
 app.get("/api/cart/:id", authCtrl.authenticate, cartCtrl.getUserCart);
-app.post("/api/cart", authCtrl.authenticate, cartCtrl.intoCart);     
+app.post("/api/cart", authCtrl.authenticate, cartCtrl.intoCart);
 app.delete("/api/cart/:id", authCtrl.authenticate, cartCtrl.remove);
 app.delete("/api/wholeCart/:id", authCtrl.authenticate, cartCtrl.clear);
 
@@ -76,27 +76,26 @@ app.delete("/api/logout", authCtrl.logout);
 
 const aws = require("aws-sdk");
 
-app.get('/sign-s3', (req, res) => {
-
+app.get("/sign-s3", (req, res) => {
   aws.config = {
-    region: 'us-west-1',
+    region: "us-west-1",
     accessKeyId: AWS_ACCESS_KEY_ID,
     secretAccessKey: AWS_SECRET_ACCESS_KEY
-  }
-  
+  };
+
   const s3 = new aws.S3();
-  const fileName = req.query['file-name'];
-  const fileType = req.query['file-type'];
+  const fileName = req.query["file-name"];
+  const fileType = req.query["file-type"];
   const s3Params = {
     Bucket: S3_BUCKET,
     Key: fileName,
     Expires: 60,
     ContentType: fileType,
-    ACL: 'public-read'
+    ACL: "public-read"
   };
 
-  s3.getSignedUrl('putObject', s3Params, (err, data) => {
-    if(err){
+  s3.getSignedUrl("putObject", s3Params, (err, data) => {
+    if (err) {
       console.log(err);
       return res.end();
     }
@@ -105,6 +104,6 @@ app.get('/sign-s3', (req, res) => {
       url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
     };
 
-    return res.send(returnData)
+    return res.send(returnData);
   });
 });

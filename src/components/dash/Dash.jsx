@@ -27,7 +27,7 @@ class Dash extends Component {
   profile(seller_id) {
     this.props.history.push(`/profile/${seller_id}`);
     axios.get(`/api/user/${seller_id}`);
-    console.log('hit')
+    // console.log('hit')
   }
 
   render() {
@@ -35,7 +35,7 @@ class Dash extends Component {
       return (
         <div key={item.product_id}>
           <div className="item">
-            <div className="left">
+            <div className="left-dash">
               <div className="profile">
                 <img
                   className="profilePic"
@@ -48,7 +48,7 @@ class Dash extends Component {
               </div>
               <img className="itemImg" src={item.img} alt="no img" />
             </div>
-            <div className="right">
+            <div className="right-dash">
               <h2>{item.item_name}.</h2>
               <h3>${item.price}</h3>
               <p>{item.description}</p>

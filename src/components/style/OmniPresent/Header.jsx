@@ -12,6 +12,7 @@ class Header extends Component {
     this.state = {
       profile: "",
       username: "",
+      id: 0,
       authenticated: false
     };
   }
@@ -23,6 +24,7 @@ class Header extends Component {
       this.setState({
         profile: res.data.profile_pic,
         username: res.data.username,
+        id: res.data.id,
         authenticated: true
       });
       // console.log(res.data);
@@ -40,6 +42,7 @@ class Header extends Component {
       confirmButtonText: "Continue"
     }).then(result => {
       if (result.value) {
+        this.props.history.push('/');
         window.location.reload();
       }
     });
@@ -47,7 +50,7 @@ class Header extends Component {
 
   holUpProfile() {
     if (this.state.authenticated === true) {
-      this.props.history.push("/my-profile");
+      this.props.history.push(`/my-profile/${this.state.id}`);
     } else {
       Swal.fire({
         icon: "error",

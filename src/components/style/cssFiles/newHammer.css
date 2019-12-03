@@ -1,0 +1,49 @@
+h1{
+  align-self: center;
+}
+.newHammer{
+  display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: baseline;
+  align-content: flex-start;
+  font-size:18px;
+  height:70vh;
+}
+.left-new{
+width: 50%;
+margin:8px;
+height: 85%;
+}
+.left-new img{
+max-width: 90%;
+max-height: 100%;
+border: solid 5px #667987;
+}
+.right-new{
+width: 50%;
+height: 100%;
+margin: 8px;
+}
+.right-new textarea{
+  resize: none;
+  width:95%;
+  height: 30%;
+  font-size: 18px;
+}
+.new-buttons{
+  display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+  justify-content: space-around;
+	align-items: center;
+  align-content: center;
+  width: 100%;
+}
+.new-buttons button{
+  background-color:#F3DFC1;
+  font-size: 20px;
+  height: 50px;
+  margin-bottom: 8px;
+}

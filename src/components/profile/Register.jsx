@@ -33,7 +33,6 @@ class Register extends Component {
       password2,
       profile_pic,
       about,
-      is_admin
     } = this.state;
     if (
       email &&

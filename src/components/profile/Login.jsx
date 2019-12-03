@@ -4,6 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { connect } from "react-redux";
 import { updateUserInfo } from "../../dux/reducer";
+import './../style/cssFiles/login.css'
 
 class Login extends Component {
   constructor(props) {
@@ -66,7 +67,7 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <div className="name/pass">
+        <div className="name">
           <p>Email:</p>
           <input
             type="text"
@@ -74,7 +75,7 @@ class Login extends Component {
             placeholder="E-mail"
           />
           <p>Password:</p>
-          <input type="password" onChange={e => this.handlePass(e)} />
+          <input type="password" onChange={e => this.handlePass(e)}  placeholder = 'Password'/>
           <br/>
           <button onClick={() => this.login()}>Login</button>
           <p>Not a member?</p>
