@@ -27,7 +27,10 @@ class Login extends Component {
         this.success();
       })
       .catch(err => {
-        Swal.fire(err.response.data.message);
+        Swal.fire({
+          icon: 'error',
+          text: err.response.data.message
+          });
       });
   }
 
@@ -36,22 +39,24 @@ class Login extends Component {
       icon: "success",
       title: "Logged in!",
       text: "Welcome back",
-      confirmButtonText: "Continue"
+      confirmButtonText: "Continue",
+      timer: 900,
+      timerProgressBar:true
     }).then(result => {
       if (result.value) {
         this.props.history.push("/");
         window.location.reload();
-      }
+      } else if (result.dismiss === Swal.DismissReason.timer){
+        this.props.history.push('/')
+        window.location.reload();}
     });
   }
 
-  // handleLogin(){
-  //   console.log(this.state)
-  //   this.setState({
-  //     emailInput: "",
-  //     password: ""
-  //   })
-  // }
+  handleKeyPress = event => {
+    if (event.key === 'Enter') {
+      this.login();
+    }
+  };
 
   handleEmail(e) {
     this.setState({
@@ -73,11 +78,13 @@ class Login extends Component {
             type="text"
             onChange={e => this.handleEmail(e)}
             placeholder="E-mail"
+            onKeyPress={this.handleKeyPress}
           />
+          
           <p>Password:</p>
-          <input type="password" onChange={e => this.handlePass(e)}  placeholder = 'Password'/>
+          <input type="password" onChange={e => this.handlePass(e)}  placeholder = 'Password' onKeyPress={this.handleKeyPress}/>
           <br/>
-          <button onClick={() => this.login()}>Login</button>
+          <button onClick={() => this.login()} >Login</button>
           <p>Not a member?</p>
           <Link to="/register">
             <button>Sign Up!</button>

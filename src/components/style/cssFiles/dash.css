@@ -38,8 +38,10 @@ max-width: 50%;
   font-size: 20px;
 }
 .itemImg{
-  max-width: 500px;
-  max-height: 400px;
+  min-width: 60%;
+  min-height: 60%;
+  max-width: 90%;
+  max-height: 90%;
   border: solid 5px;
   border-color:#32353A;
 }
@@ -50,10 +52,13 @@ max-width: 50%;
 	justify-content: space-around;
 	align-items: center;
   align-content: space-around;
-  color: #F3DFC1;
+  
 }
 .dashBut{
   background-color:#F3DFC1;
-  height: 4vh;
-  width: 8vw;
+  /* height: 4vh;
+  width: 8vw; */
+}
+.adminButt{
+  color: red;
 }

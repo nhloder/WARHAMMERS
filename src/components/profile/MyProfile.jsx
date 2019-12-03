@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import "./../style/cssFiles/myProfile.css";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
+
 
 class Profile extends Component {
   constructor(props) {
@@ -14,9 +15,7 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    this.getInfo()
-    
-    
+    this.getInfo();
   }
 
   getInfo() {
@@ -26,7 +25,8 @@ class Profile extends Component {
         this.setState({
           profileData: res.data
         });
-      }).then(this.getUserProducts())
+      })
+      .then(this.getUserProducts())
       .catch(err => {
         Swal.fire({
           icon: "error",
@@ -49,47 +49,51 @@ class Profile extends Component {
     });
   }
 
-  deleteFn(product_id){
+  deleteFn(product_id) {
     Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "You won't be able to revert this!",
-      icon: 'warning',
+      icon: "question",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Remove it!'
-    }).then((result) => {
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Remove it!"
+    }).then(result => {
       if (result.value) {
         Swal.fire({
-          title: 'Are you Really sure?',
+          title: "Are you Really sure?",
           text: "Make Sure You're looking at the right product!",
-          icon: 'warning',
+          icon: "warning",
           showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yeah Im really sure!'
-        }).then((result) => {
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yeah Im really sure!"
+        }).then(result => {
           if (result.value) {
             axios.delete(`/api/product/${product_id}`).then(res =>
               this.setState({
-                userProducts:res.data
-              }))
+                userProducts: res.data
+              })
+            );
             Swal.fire(
-              'Deleted!',
-              'Your Hammer has been removed.',
-              'success'
+              "Deleted!",
+              "Your Hammer has been removed.",
+              "success"
             ).then(result => {
-              if(result.value){
-                window.location.reload()
+              if (result.value) {
+                window.location.reload();
               }
-            })
-        console.log(product_id);
-        
+            });
+          }
+        });
       }
-    })
+    });
   }
-  
-    })
+  editFn = (id) => {
+    this.props.history.push(`/edit-hammer/${id}`)
+  }
+  editProfileFn = (id) => {
+    this.props.history.push(`/edit-profile/${id}`)
   }
 
   render() {
@@ -105,7 +109,7 @@ class Profile extends Component {
                   alt="no_user"
                 />
 
-                <h2 className= 'username'>{item.username}</h2>
+                <h2 className="username">{item.username}</h2>
               </div>
               <img className="itemImg" src={item.img} alt="no img" />
             </div>
@@ -124,11 +128,16 @@ class Profile extends Component {
           <div className="buttons">
             <button className="dashBut">More Info</button>
             <button className="dashBut">Add to cart</button>
-            <button className="dashBut">Edit Hammer</button>
-            <button className= 'dashBut' onClick={() => this.deleteFn(item.product_id)}>Delete Hammer</button>
+            <button className = 'dashBut' onClick={() => this.editFn(item.product_id)}>Edit Hammer</button> 
+            <button
+              className="dashBut"
+              onClick={() => this.deleteFn(item.product_id)}
+            >
+              Delete Hammer
+            </button>
           </div>
           <hr />
-          <br/>
+          <br />
         </div>
       );
     });
@@ -139,11 +148,11 @@ class Profile extends Component {
           <div className="left">
             <img className="userImg" src={profileData.profile_pic} alt="oops" />
             <div className="buttons">
-              <Link to = '/edit-profile'>
-              <button>Edit Profile</button>
-              </Link>
-              <Link to = '/new-hammer'>
-              <button>Add New Product</button>
+
+                <button onClick = {() => this.editProfileFn(profileData.id)}>Edit Profile</button>
+
+              <Link to="/new-hammer">
+                <button>Add New Product</button>
               </Link>
             </div>
           </div>
@@ -156,9 +165,7 @@ class Profile extends Component {
         <div>
           <hr />
         </div>
-        <div className="lowerStuff">
-          {userProducts}
-        </div>
+        <div className="lowerStuff">{userProducts}</div>
       </>
     );
   }

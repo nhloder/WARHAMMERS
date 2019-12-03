@@ -17,6 +17,7 @@ margin:8px;
 height: 85%;
 }
 .left-new img{
+  min-width: 75%;
 max-width: 90%;
 max-height: 100%;
 border: solid 5px #667987;

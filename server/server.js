@@ -53,7 +53,7 @@ app.get("/api/product/:id", pdctCtrl.getOne);
 app.get("/api/userProducts/:id", pdctCtrl.userProducts);
 app.get("/api/myProducts", authCtrl.authenticate, pdctCtrl.myProducts);
 app.post("/api/product", authCtrl.authenticate, pdctCtrl.addProduct);
-app.put("/api/product/:id", authCtrl.authenticate, pdctCtrl.updateProduct);
+app.put("/api/product/:id", pdctCtrl.updateProduct);
 app.delete("/api/product/:id", authCtrl.authenticate, pdctCtrl.deleteProduct);
 
 // Cart

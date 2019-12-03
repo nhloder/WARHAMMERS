@@ -34,7 +34,7 @@ class NewHammer extends Component {
           userInfo: res.data,
           seller_id: res.data.id
         });
-        console.log(this.state.seller_id);
+        // console.log(this.state.seller_id);
         //! ^^^ this console log stays I need to make sure the seller Id is correct.
       })
       .catch(err => {
@@ -145,6 +145,11 @@ class NewHammer extends Component {
       material: e.target.value
     });
   }
+  handleKeyPress = event => {
+    if (event.key === 'Enter') {
+      this.addHammer();
+    }
+  };
 
   render() {
     const {
@@ -169,6 +174,7 @@ class NewHammer extends Component {
                 type="text"
                 placeholder="Image"
                 onChange={e => this.handleImg(e)}
+                onKeyPress ={this.handleKeyPress}
               />
             </p>
             <img src={img} alt="oops" />
@@ -220,6 +226,7 @@ class NewHammer extends Component {
             <textarea
               placeholder="Description"
               onChange={e => this.handleDescription(e)}
+              onKeyPress = {this.handleKeyPress}
             ></textarea>
           </div>
         </div>

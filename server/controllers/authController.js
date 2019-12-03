@@ -51,7 +51,8 @@ module.exports = {
         email: user[0].email,
         profile_pic: user[0].profile_pic,
         username: user[0].username,
-        about: user[0].about
+        about: user[0].about,
+        isAdmin:user[0].is_admin
       };
       return res
         .status(200)
@@ -71,14 +72,6 @@ module.exports = {
       res.status(200).send(`no`);
     }
   },
-  // thatUser(req,res,next){
-  //   const db = req.app.get("db");
-  //   db.products.get_one(+req.params.id)
-  //   if (+req.session.user.id === products.seller_id){
-  //     next()
-  //   }
-  //   //what you need to do here is make it so that when a user trys to delete one
-  // },
   adminsOnly: (req, res, next) => {
     if (!req.session.user.isAdmin) {
       return res.status(403).send("You are not an admin");

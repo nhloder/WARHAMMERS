@@ -30,10 +30,10 @@ module.exports = {
   editUser(req, res) {
     const db = req.app.get("db");
     const user_id = +req.params.id;
-    const { username, email, about, profile_pic, hash_id} = req.body;
+    const { username, about, profile_pic} = req.body;
 
     db.edit
-      .edit_user({ username, email, about, profile_pic, hash_id, user_id })
+      .edit_user({ username, about, profile_pic, user_id })
       .then(result => {
         // console.log(+req.params.id);
         res.status(200).send(result);
@@ -41,7 +41,7 @@ module.exports = {
       .catch(err => {
         res
           .status(500)
-          .send({ errorMessage: "we done goofed, try again later" });
+          .send({ message: "we done goofed, try again later" });
         console.log(err);
       });
   },

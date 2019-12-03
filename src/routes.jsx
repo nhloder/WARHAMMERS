@@ -16,12 +16,12 @@ export default (
     <Route exact path="/" component={Dash} />
     <Route path="/login" component={Login} />
     <Route path="/register" component={Register} />
-    <Route path="/edit-profile" component={EditProfile} />
-    <Route path="/profile" component={Profile} />
+    <Route path="/edit-profile/:id" component={EditProfile} />
+    <Route path="/profile/:id" component={Profile} />
     <Route path="/my-profile" component={MyProfile} />
     <Route path="/new-hammer" component={NewHammer} />
-    <Route path="/edit-hammer" component={EditHammer} />
-    <Route path="/one-hammer" component={OneHammer} />
+    <Route path="/edit-hammer/:id" component={EditHammer} />
+    <Route path="/one-hammer/:id" component={OneHammer} />
     <Route path="/cart" component={Cart} />
   </Switch>
 );
