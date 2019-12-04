@@ -197,6 +197,10 @@ class OneHammer extends Component {
     });
   }
 
+  userDelete(id){
+    
+  }
+
   render() {
     const {
       username,
@@ -247,8 +251,6 @@ class OneHammer extends Component {
           </div>
           : null
           }
-
-
           <br />
           <hr />
         </div>
