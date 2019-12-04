@@ -7,6 +7,7 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      visitorInfo: [],
       userInfo: [],
       userProducts: []
     };
@@ -35,8 +36,18 @@ class Profile extends Component {
             this.props.history.push("/");
           }
         });
-      });
+      }).then(
+        axios.get("/api/userInfo").then(res => {
+          this.setState({
+            visitorInfo: res.data
+          });
+        })
+      );
   }
+
+  product(product_id) {
+    this.props.history.push(`/one-hammer/${product_id}`);
+};
 
   getProducts() {
     axios.get(`/api/userProducts/${this.props.match.params.id}`).then(res => {
@@ -45,6 +56,51 @@ class Profile extends Component {
       });
     });
   }
+  adminDelete(product_id) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: `you're about to delete somebody else's Product!`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Remove it!"
+    }).then(result => {
+      if (result.value) {
+        Swal.fire({
+          title: "Are you Really sure?",
+          text: "You won't be able to revert this!",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yeah Im really sure!"
+        }).then(result => {
+          if (result.value) {
+            axios.delete(`/api/product/${product_id}`).then(res =>
+              this.setState({
+                userProducts: res.data
+              })
+            );
+            Swal.fire({
+              title: "Deleted!",
+              message: "Your Hammer has been removed.",
+              icon: "success",
+              timer: 1500,
+              timerProgressBar: true
+            }).then(result => {
+              if (result.value) {
+                window.location.reload();
+              } else if (result.dismiss === Swal.DismissReason.timer){
+                window.location.reload();
+              }
+            });
+          }
+        });
+      }
+    });
+  }
+
   render() {
     const userProducts = this.state.userProducts.map(item => {
       return (
@@ -75,8 +131,16 @@ class Profile extends Component {
             <br />
           </div>
           <div className="buttons">
-            <button className="dashBut">More Info</button>
+            <button className="dashBut" onClick = {() => this.product(item.product_id)}>More Info</button>
             <button className="dashBut">Add to cart</button>
+            {this.state.visitorInfo.isAdmin === true ? (
+              <button
+                className="adminButt"
+                onClick={() => this.adminDelete(item.product_id)}
+              >
+                Admin Delete
+              </button>
+            ) : null}
           </div>
           <hr />
           <br />

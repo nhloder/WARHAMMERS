@@ -35,7 +35,7 @@ img {
 }
 .profilepic {
   border-radius: 50%;
-  max-width: 5vw;
-  max-height: 5vh;
-  padding-right: 10px;
+
+  max-height: 100%;
+  margin-right: 10px;
 }

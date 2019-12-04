@@ -96,6 +96,10 @@ class Profile extends Component {
     this.props.history.push(`/edit-profile/${id}`)
   }
 
+  product(product_id) {
+    this.props.history.push(`/one-hammer/${product_id}`);
+};
+
   render() {
     const userProducts = this.state.userProducts.map(item => {
       return (
@@ -126,7 +130,7 @@ class Profile extends Component {
             <br />
           </div>
           <div className="buttons">
-            <button className="dashBut">More Info</button>
+            <button className="dashBut" onClick = {() => this.product(item.product_id)}>More Info</button>
             <button className="dashBut">Add to cart</button>
             <button className = 'dashBut' onClick={() => this.editFn(item.product_id)}>Edit Hammer</button> 
             <button

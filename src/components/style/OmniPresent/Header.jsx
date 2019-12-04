@@ -39,12 +39,16 @@ class Header extends Component {
       icon: "warning",
       title: "Logged Out.",
       text: "Come Back Soon!",
-      confirmButtonText: "Continue"
+      confirmButtonText: "Continue",
+      timer: 1500,
+      timerProgressBar:true
     }).then(result => {
       if (result.value) {
-        this.props.history.push('/');
+        this.props.history.push("/");
         window.location.reload();
-      }
+      } else if (result.dismiss === Swal.DismissReason.timer){
+        this.props.history.push('/')
+        window.location.reload();}
     });
   }
 

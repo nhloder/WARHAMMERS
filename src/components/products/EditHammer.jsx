@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Link } from "react-dom";
 
 class EditHammer extends Component {
   constructor(props) {
@@ -166,7 +165,7 @@ class EditHammer extends Component {
                 onKeyPress={this.handleKeyPress}
               />
             </p>
-            <img src={img} alt="No Image" />
+            <img src={img} alt="Nothing here" />
           </div>
           <div className="right-new">
             <p>

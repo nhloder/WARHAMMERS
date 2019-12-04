@@ -45,6 +45,10 @@ class Dash extends Component {
     }
   }
 
+  product(product_id) {
+      this.props.history.push(`/one-hammer/${product_id}`);
+  };
+
   adminDelete(product_id) {
     Swal.fire({
       title: "Are you sure?",
@@ -121,7 +125,7 @@ class Dash extends Component {
             <br />
           </div>
           <div className="buttons">
-            <button className="dashBut">More Info</button>
+            <button className="dashBut" onClick = {() => this.product(item.product_id)}>More Info</button>
             <button className="dashBut">Add to cart</button>
             {this.state.profileData.isAdmin === true ? (
               <button
