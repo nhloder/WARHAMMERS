@@ -1,55 +1,120 @@
-.topBit{
+.topBit {
   display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-between;
-	align-items: stretch;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: stretch;
   align-content: flex-start;
-  min-height:60vh;
+  min-height: 60vh;
 }
-.leftBit{
-  width:50%;
+.leftBit {
+  width: 50%;
   display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: flex-start;
-	align-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
   align-content: flex-start;
   margin: 8px;
 }
-.profileBit{
-  height:10%;
+.profileBit {
+  height: 10%;
   display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-around;
-	align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
   align-content: flex-start;
-  width:95%;
+  width: 95%;
 }
-.profileName{
-  font-size:5vh;
+.profileName {
+  font-size: 5vh;
 }
-.profilePic2{
+.profilePic2 {
   min-height: 100%;
   max-width: 100%;
   border-radius: 50%;
   border: solid 4px;
-  border-color:grey;
+  border-color: grey;
 }
-.itemPic{
+.itemPic {
   min-width: 75%;
-max-width: 95%;
-max-height: 100%;
-border: solid 5px #667987;
+  max-width: 95%;
+  max-height: 100%;
+  border: solid 5px #667987;
 }
-.rightBit{
+.rightBit {
   width: 50%;
   margin: 8px;
 }
-.listBit{
+.listBit {
   font-size: 19px;
 }
-.bottomBit{
+.bottomBit {
   max-width: 90%;
+}
+.cancerLand {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: stretch;
+  width: 90%;
+  margin: 8px;
+  align-self: center;
+}
+.commentProfileStuff {
+  height: 10%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+.commentBox {
+  border: solid;
+  width: 100%;
+}
+.addComment {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-end;
+  align-content: flex-end;
+  width: 100%;
+  margin: 6px;
+}
+.commentPoster{
+width: 90%;
+height: 20vh;
+}
+.commentPoster textarea{
+  resize: none;
+  width:95%;
+  height: 90%;
+  font-size: 18px;
+}
+.addComment button {
+  background-color: #f3dfc1;
+  font-size: 20px;
+  height: 50px;
+  margin: 8px 8px 8px 75%;
+}
+.adminButtContainer{
+  display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+  justify-content: space-around;
+	align-items: center;
+  align-content: center;
+  width: 100%;
+}
+.adminButt{
+  background-color:red;
+  font-size: 20px;
+  height: 50px;
+  margin: 8px;
 }

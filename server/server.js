@@ -64,7 +64,7 @@ app.delete("/api/wholeCart/:id", authCtrl.authenticate, cartCtrl.clear);
 
 // Comments
 app.get("/api/comments/:id", comCtrl.getComments);
-app.post("/api/comments", authCtrl.authenticate, comCtrl.addComment);
+app.post("/api/comment", authCtrl.authenticate, comCtrl.addComment);
 app.delete("/api/comment/:id", authCtrl.authenticate, comCtrl.deleteComment);
 
 //Auth

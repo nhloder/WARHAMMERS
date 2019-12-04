@@ -35,7 +35,12 @@ max-height: 100%;
   background-color:#F3DFC1;
   font-size: 20px;
   height: 50px;
-  /* width: 80px; */
+  margin: 8px;
+}
+.buttons .adminButt{
+  background-color: red;
+  font-size: 20px;
+  height: 50px;
   margin: 8px;
 }
 .right {

@@ -45,20 +45,25 @@ max-width: 50%;
   border: solid 5px;
   border-color:#32353A;
 }
-.buttons{
+.dashButtons{
   display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
-	justify-content: space-around;
+  justify-content: space-around;
 	align-items: center;
-  align-content: space-around;
-  
+  align-content: center;
+  width: 100%;
 }
-.dashBut{
+.dashButtons .dashBut{
   background-color:#F3DFC1;
-  /* height: 4vh;
-  width: 8vw; */
+  font-size: 20px;
+  height: 50px;
+  margin: 8px;
 }
+
 .adminButt{
-  color: red;
+  background-color: red;
+  font-size: 20px;
+  height: 50px;
+  margin: 8px;
 }

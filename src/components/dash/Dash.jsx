@@ -124,7 +124,7 @@ class Dash extends Component {
             </div>
             <br />
           </div>
-          <div className="buttons">
+          <div className="dashButtons">
             <button className="dashBut" onClick = {() => this.product(item.product_id)}>More Info</button>
             <button className="dashBut">Add to cart</button>
             {this.state.profileData.isAdmin === true ? (
