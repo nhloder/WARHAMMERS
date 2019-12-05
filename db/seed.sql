@@ -7,6 +7,11 @@ CREATE TABLE users(
 	is_admin BOOLEAN,
 	hash_id INT REFERENCES hash(hash_id)ON DELETE CASCADE
 );
+CREATE TABLE cart(
+	cart_id SERIAL PRIMARY KEY,
+	customer_id int REFERENCES users(user_id),
+	item_id int REFERENCES products(product_id)
+);
 CREATE TABLE hash(
 	hash_id SERIAL PRIMARY KEY[]
 	hash TEXT
@@ -27,11 +32,6 @@ CREATE TABLE comments(
 	comment_location_id int REFERENCES products(product_id),
 	commenter_id int REFERENCES users(user_id),
 	content VARCHAR
-);
-CREATE TABLE cart(
-	cart_id SERIAL PRIMARY KEY,
-	customer_id int REFERENCES users(user_id),
-	item_id int REFERENCES products(product_id)
 );
 -- -- DUMMY DATA
 -- INSERT INTO users(username, email, about, profile_pic, is_admin)

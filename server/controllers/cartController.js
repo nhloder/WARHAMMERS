@@ -1,7 +1,8 @@
 module.exports = {
   getUserCart(req,res){
     const db = req.app.get("db");
-    db.cart.display_cart(+req.params.id)
+    db.cart
+      .display_cart(+req.params.id)
       .then(result => {
         res.status(200).send(result);
       })

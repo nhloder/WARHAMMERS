@@ -71,7 +71,7 @@ class Header extends Component {
 
   holUpCart() {
     if (this.state.authenticated === true) {
-      this.props.history.push("/cart");
+      this.props.history.push(`/cart/${this.state.id}`);
     } else {
       Swal.fire({
         icon: "error",

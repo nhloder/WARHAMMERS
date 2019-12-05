@@ -22,6 +22,6 @@ export default (
     <Route path="/new-hammer" component={NewHammer} />
     <Route path="/edit-hammer/:id" component={EditHammer} />
     <Route path="/one-hammer/:id" component={OneHammer} />
-    <Route path="/cart" component={Cart} />
+    <Route path="/cart/:id" component={Cart} />
   </Switch>
 );

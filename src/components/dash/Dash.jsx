@@ -9,7 +9,10 @@ class Dash extends Component {
     super();
     this.state = {
       inventory: [],
-      profileData: []
+      profileData: [],
+      customer_id: 0,
+      item_id: 0,
+      exists: false
     };
   }
 
@@ -34,6 +37,74 @@ class Dash extends Component {
         })
       );
   }
+ //start of add to cart functionality. 
+ //note: this is hour 14 of coding today
+  async addToCart(id) {
+    await 
+    this.setState({
+      customer_id: this.state.profileData.id,
+      item_id: id,
+      exists:false
+    });
+    this.doesItExist();
+  }
+
+  async doesItExist() {
+    const { customer_id, item_id,} = this.state;
+    await axios.get(`/api/cart/${customer_id}`).then(res => {
+      for (let i = 0; i < res.data.length; i++) {
+        if (this.state.exists === false) {
+        if (res.data[i].item_id === +item_id) {
+          Swal.fire({
+            icon: "warning",
+            title: "Item Already in Cart!",
+            text: `Click on "Cart" in the Navigation bar to access your cart`,
+            confirmButtonText: "Continue",
+            timer: 3500,
+            timerProgressBar: true
+          });
+          this.setState({
+            exists: true
+          });
+        } else if (res.data[i].item_id !== +item_id) {
+          console.log(i, res.data[i].cart_id);
+        }
+        }
+      }
+    })
+    .then(() => {
+      if (this.state.exists === false){
+        // console.log(`Don't exist send`);
+        this.makeItGo()
+      }
+    })
+    // .then(()=>{
+    //   this.setState({exists: false})
+    // })
+  }
+
+  makeItGo() {
+    const { customer_id, item_id } = this.state;
+    console.log("hit!");
+    axios
+      .post("/api/cart", this.state)
+      .then(this.success())
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  success() {
+    Swal.fire({
+      icon: "success",
+      title: "Added to cart!",
+      text: `Click on "Cart" in the Navigation bar to access your cart`,
+      confirmButtonText: "Continue",
+      timer: 1500,
+      timerProgressBar: true
+    })
+  }
+  // end of add to cart functionality
 
   profile(seller_id) {
     if (this.state.profileData.id === seller_id) {
@@ -46,8 +117,8 @@ class Dash extends Component {
   }
 
   product(product_id) {
-      this.props.history.push(`/one-hammer/${product_id}`);
-  };
+    this.props.history.push(`/one-hammer/${product_id}`);
+  }
 
   adminDelete(product_id) {
     Swal.fire({
@@ -84,7 +155,7 @@ class Dash extends Component {
             }).then(result => {
               if (result.value) {
                 window.location.reload();
-              } else if (result.dismiss === Swal.DismissReason.timer){
+              } else if (result.dismiss === Swal.DismissReason.timer) {
                 window.location.reload();
               }
             });
@@ -125,8 +196,18 @@ class Dash extends Component {
             <br />
           </div>
           <div className="dashButtons">
-            <button className="dashBut" onClick = {() => this.product(item.product_id)}>More Info</button>
-            <button className="dashBut">Add to cart</button>
+            <button
+              className="dashBut"
+              onClick={() => this.product(item.product_id)}
+            >
+              More Info
+            </button>
+            <button
+              className="dashBut"
+              onClick={() => this.addToCart(item.product_id)}
+            >
+              Add to cart
+            </button>
             {this.state.profileData.isAdmin === true ? (
               <button
                 className="adminButt"

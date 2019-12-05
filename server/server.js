@@ -1,3 +1,4 @@
+const path = require('path'); 
 require("dotenv").config();
 const express = require("express");
 const massive = require("massive");
@@ -20,11 +21,10 @@ const {
 
 const app = express();
 // HOSTING STUFF \\
-const path = require('path'); // Usually moved to the start of file
 
-app.get('*', (req, res)=>{
-    res.sendFile(path.join(__dirname, '../build/index.html'));
-});
+// app.get('*', (req, res)=>{
+//     res.sendFile(path.join(__dirname, '../build/index.html'));
+// });
 
 // TOP LEVEL MIDDLEWARE \\
 app.use(express.json());
@@ -64,7 +64,7 @@ app.put("/api/product/:id", pdctCtrl.updateProduct);
 app.delete("/api/product/:id", authCtrl.authenticate, pdctCtrl.deleteProduct);
 
 // Cart
-app.get("/api/cart/:id", authCtrl.authenticate, cartCtrl.getUserCart);
+app.get("/api/cart/:id", cartCtrl.getUserCart);
 app.post("/api/cart", authCtrl.authenticate, cartCtrl.intoCart);
 app.delete("/api/cart/:id", authCtrl.authenticate, cartCtrl.remove);
 app.delete("/api/wholeCart/:id", authCtrl.authenticate, cartCtrl.clear);
