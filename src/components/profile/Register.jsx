@@ -4,9 +4,9 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { connect } from "react-redux";
 import { updateUserInfo } from "../../dux/reducer";
-// import Dropzone from "react-dropzone";
-// import { GridLoader } from "react-spinners";
-// import { v4 as randomString } from "uuid";
+import Dropzone from "react-dropzone";
+import { GridLoader } from "react-spinners";
+import { v4 as randomString } from "uuid";
 import "./../style/cssFiles/register.css";
 
 class Register extends Component {
@@ -17,7 +17,7 @@ class Register extends Component {
       username: "",
       password: "",
       password2: "",
-      profile_pic: "http://via.placeholder.com/400x300",
+      profile_pic: "",
       about: "",
       is_admin: false,
       isUploading: false,
@@ -32,7 +32,7 @@ class Register extends Component {
       password,
       password2,
       profile_pic,
-      about,
+      about
     } = this.state;
     if (
       email &&
@@ -45,12 +45,12 @@ class Register extends Component {
     ) {
       axios
         .post("/api/user", this.state)
-        .then(
-          axios.post("/api/login", {
-            email: email,
-            password: password
-          })
-        )
+        // .then(
+        //   axios.post("/api/login", {
+        //     email: email,
+        //     password: password
+        //   })
+        // )
         .then(res => {
           this.props.updateUserInfo(res.data.user);
           this.success();
@@ -77,7 +77,7 @@ class Register extends Component {
       });
     }
   };
-  
+
   success() {
     Swal.fire({
       icon: "success",
@@ -86,7 +86,7 @@ class Register extends Component {
       confirmButtonText: "Continue"
     }).then(result => {
       if (result.value) {
-        this.props.history.push("/my-profile");
+        this.props.history.push("/login");
       }
     });
   }
@@ -116,10 +116,11 @@ class Register extends Component {
     });
   }
 
-  handleImage(e) {
+  handleImage(url) {
     this.setState({
-      profile_pic: e.target.value
+      profile_pic: url
     });
+    // console.log('hit', url);
   }
 
   handleEmail(e) {
@@ -127,6 +128,54 @@ class Register extends Component {
       email: e.target.value
     });
   }
+  getSignedRequest = ([file]) => {
+    this.setState({ isUploading: true });
+
+    const fileName = `${randomString()}-${file.name.replace(/\s/g, "-")}`;
+
+    axios
+      .get("/sign-s3", {
+        params: {
+          "file-name": fileName,
+          "file-type": file.type
+        }
+      })
+      .then(response => {
+        const { signedRequest, url } = response.data;
+        this.uploadFile(file, signedRequest, url);
+        
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  uploadFile = (file, signedRequest, url) => {
+    const options = {
+      headers: {
+        "Content-Type": file.type
+      }
+    };
+
+    axios
+      .put(signedRequest, file, options)
+      .then(response => {
+        this.setState({ isUploading: false, url });
+        this.handleImage(url)
+      })
+      .catch(err => {
+        this.setState({
+          isUploading: false
+        });
+        if (err.response.status === 403) {
+          alert(
+            `Your request for a signed URL failed with a status 403. Double check the CORS configuration and bucket policy in the README. You also will want to double check your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in your .env and ensure that they are the same as the ones that you created in the IAM dashboard. You may need to generate new keys\n${err.stack}`
+          );
+        } else {
+          alert(`ERROR: ${err.status}\n ${err.stack}`);
+        }
+      });
+  };
 
   render() {
     return (
@@ -182,40 +231,46 @@ class Register extends Component {
 
           <div className="rightBox">
             <p>Got a good Picture?</p>
-            <input
+            {/* <input
               type="text"
               placeholder="image url"
               onChange={e => this.handleImage(e)}
             />
+            <br /> */}
             <br />
-            <br />
-            <img
-              className="newProfilePic"
-              src={this.state.profile_pic}
-              alt="oops, there's nothing here."
-            />
-
-            {/* <Dropzone
-          onDropAccepted={this.getSignedRequest}
-          style={{
-            position: 'relative',
-            width: 200,
-            height: 200,
-            borderWidth: 7,
-            marginTop: 100,
-            borderColor: 'rgb(102, 102, 102)',
-            borderStyle: 'dashed',
-            borderRadius: 5,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            fontSize: 28,
-          }}
-          accept="image/*"
-          multiple={false}
-          >
-          {this.state.isUploading ? <GridLoader /> : <p>Drop File or Click Here</p>}
-        </Dropzone> */}
+            {this.state.profile_pic ? (
+              <img
+                className="newProfilePic"
+                src={this.state.profile_pic}
+                alt="oops, there's nothing here."
+              />
+            ) : (
+              <Dropzone
+                onDropAccepted={this.getSignedRequest}
+                style={{
+                  position: "relative",
+                  width: 200,
+                  height: 200,
+                  borderWidth: 7,
+                  marginTop: 100,
+                  borderColor: "rgb(102, 102, 102)",
+                  borderStyle: "dashed",
+                  borderRadius: 5,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontSize: 28
+                }}
+                accept="image/*"
+                multiple={false}
+              >
+                {this.state.isUploading ? (
+                  <GridLoader />
+                ) : (
+                  <p>Drop File or Click Here</p>
+                )}
+              </Dropzone>
+            )}
           </div>
         </div>
         <br />
@@ -228,52 +283,3 @@ class Register extends Component {
 }
 
 export default connect(null, { updateUserInfo })(Register);
-
-// getSignedRequest = ([file]) => {
-//   this.setState({ isUploading: true });
-
-//   const fileName = `${randomString()}-${file.name.replace(/\s/g, "-")}`;
-
-//   axios
-//     .get("/sign-s3", {
-//       params: {
-//         "file-name": fileName,
-//         "file-type": file.type
-//       }
-//     })
-//     .then(response => {
-//       const { signedRequest, url } = response.data;
-//       this.uploadFile(file, signedRequest, url);
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     });
-// };
-
-// uploadFile = (file, signedRequest, url) => {
-//   const options = {
-//     headers: {
-//       'Content-Type': file.type,
-//     },
-//   };
-
-//   axios
-//     .put(signedRequest, file, options)
-//     .then(response => {
-//       this.setState({ isUploading: false, url });
-//     })
-//     .catch(err => {
-//       this.setState({
-//         isUploading: false,
-//       });
-//       if (err.response.status === 403) {
-//         alert(
-//           `Your request for a signed URL failed with a status 403. Double check the CORS configuration and bucket policy in the README. You also will want to double check your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in your .env and ensure that they are the same as the ones that you created in the IAM dashboard. You may need to generate new keys\n${
-//             err.stack
-//           }`
-//         );
-//       } else {
-//         alert(`ERROR: ${err.status}\n ${err.stack}`);
-//       }
-//     });
-// };

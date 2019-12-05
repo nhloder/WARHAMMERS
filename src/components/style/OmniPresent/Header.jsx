@@ -58,8 +58,7 @@ class Header extends Component {
     } else {
       Swal.fire({
         icon: "error",
-        title: "Fuck outta here Bruh.",
-        text: "please log in",
+        title: "please Log in first please",
         confirmButtonText: "Continue"
       }).then(result => {
         if (result.value) {
@@ -75,7 +74,7 @@ class Header extends Component {
     } else {
       Swal.fire({
         icon: "error",
-        title: "Fuck outta here Bruh.",
+        title: "please Log in first please",
         text: "please log in",
         confirmButtonText: "Continue"
       }).then(result => {

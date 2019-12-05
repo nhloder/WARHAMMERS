@@ -84,7 +84,6 @@ class Dash extends Component {
   }
 
   makeItGo() {
-    const { customer_id, item_id } = this.state;
     console.log("hit!");
     axios
       .post("/api/cart", this.state)

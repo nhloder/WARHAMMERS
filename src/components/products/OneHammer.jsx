@@ -198,8 +198,24 @@ class OneHammer extends Component {
   }
 
   userDelete(id){
-    
-  }
+    Swal.fire({
+      title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yeah Im really sure!"
+    }).then(result => {
+      if (result.value){
+        axios.delete(`/api/comment/${id}`).then(res =>
+          this.setState({
+            commentStuff: res.data
+          })
+        ).then(window.location.reload());
+      }
+    })
+}
 
   render() {
     const {
@@ -247,7 +263,7 @@ class OneHammer extends Component {
 
           {comment.commenter_id === this.state.profileData.id ? 
           <div className="buttons">
-            <button>Delete Comment</button>
+            <button onClick = {() => this.userDelete(comment.comment_id)}>Delete Comment</button>
           </div>
           : null
           }

@@ -8,6 +8,7 @@ const cartCtrl = require("./controllers/cartController.js");
 const authCtrl = require("./controllers/authController.js");
 const comCtrl = require("./controllers/commentController.js");
 const pdctCtrl = require("./controllers/productController.js");
+const aws = require("aws-sdk");
 
 const {
   SERVER_PORT,
@@ -21,6 +22,7 @@ const {
 
 const app = express();
 // HOSTING STUFF \\
+app.use( express.static( `${__dirname}/../build` ) );
 
 // app.get('*', (req, res)=>{
 //     res.sendFile(path.join(__dirname, '../build/index.html'));
@@ -81,7 +83,6 @@ app.delete("/api/logout", authCtrl.logout);
 
 // AMAZON S3 \\
 
-const aws = require("aws-sdk");
 
 app.get("/sign-s3", (req, res) => {
   aws.config = {
