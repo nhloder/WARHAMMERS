@@ -1,30 +1,58 @@
+import axios from "axios";
 // INITIAL STATE \\
 const initialState = {
-  profilePic: "",
-  username: "",
-  itemName: "",
-  description: "",
-  price: 0,
-  itemImg: "",
   isAdmin: false,
-  userInfo: {}
+  userInfo: { results: [] },
+  loading: false,
+  username:''
 };
 
 // ACTION CONSTANTS \\
-const UPDATE_USER_INFO = 'UPDATE_USER_INFO'
+const SET_USERNAME = "SET_USERNAME";
+// const RESET = "RESET";
+const GET_USER = "GET_USER";
 // ACTION BUILDERS \\
-export function updateUserInfo(userObj){
-  return{
-    type: UPDATE_USER_INFO,
-    payload: userObj
-  }
+export const setUsername = username => {
+  // console.log(username);
+  
+  return {
+    type: SET_USERNAME,
+    payload: username
+  };
+};
+
+export function getUser(id) {
+  let userPromise = axios.get(`/api/user/${id}`).then(res => {
+    return (res.data, "hi");
+  });
+  console.log('hit', id);
+  
+  return {
+    type: GET_USER,
+    payload: userPromise
+  };
 }
+
+// export function reSet() {
+//   return {
+//     type: RESET,
+//     payload: initialState
+//   };
+// }
 // REDUCER \\
 
 function reducer(state = initialState, action) {
   switch (action.type) {
-    case UPDATE_USER_INFO:
-      return{...state, ...action.payload}
+    case SET_USERNAME:
+      return { ...state, username: action.payload };
+    // case reSet:
+    //   return { ...initialState };
+    case GET_USER + "_PENDING":
+      return { ...state, loading: true };
+    case GET_USER + "_REJECTED":
+      return { ...state, loading: false };
+    case GET_USER + "_FULFILLED":
+      return { ...state, loading: false, userInfo: action.payload };
     default:
       return state;
   }

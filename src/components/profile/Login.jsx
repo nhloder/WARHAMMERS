@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { connect } from "react-redux";
-import { updateUserInfo } from "../../dux/reducer";
+import { setUsername } from "../../dux/reducer";
 import './../style/cssFiles/login.css'
 
 class Login extends Component {
@@ -23,7 +23,7 @@ class Login extends Component {
         password: this.state.password
       })
       .then(res => {
-        this.props.updateUserInfo(res.data.user);
+        this.props.setUsername(res.data.username);
         this.success();
       })
       .catch(err => {
@@ -94,5 +94,11 @@ class Login extends Component {
     );
   }
 }
+// function mapStateToProps(reduxState){
+//   const {userInfo} = reduxState
+//   return{
+//     userInfo
+//   }
+// }
 
-export default connect(null, { updateUserInfo })(Login);
+export default connect(null, { setUsername })(Login);

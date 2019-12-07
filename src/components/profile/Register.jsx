@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { connect } from "react-redux";
-import { updateUserInfo } from "../../dux/reducer";
 import Dropzone from "react-dropzone";
 import { GridLoader } from "react-spinners";
 import { v4 as randomString } from "uuid";
@@ -52,7 +50,7 @@ class Register extends Component {
         //   })
         // )
         .then(res => {
-          this.props.updateUserInfo(res.data.user);
+          
           this.success();
         })
         .catch(err => {
@@ -282,4 +280,4 @@ class Register extends Component {
   }
 }
 
-export default connect(null, { updateUserInfo })(Register);
+export default Register;

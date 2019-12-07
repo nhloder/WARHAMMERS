@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import "./../style/cssFiles/myProfile.css";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { getUser, setUsername } from "../../dux/reducer";
 
-
-class Profile extends Component {
+class MyProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,8 +15,8 @@ class Profile extends Component {
     };
   }
 
-  componentDidMount() {
-    this.getInfo();
+  async componentDidMount() {
+    await this.getInfo();
   }
 
   getInfo() {
@@ -25,20 +26,23 @@ class Profile extends Component {
         this.setState({
           profileData: res.data
         });
+        this.reduxExample(res.data.username)
       })
-      .then(this.getUserProducts())
-      .catch(err => {
-        Swal.fire({
-          icon: "error",
-          title: "something went wrong.",
-          text: err.response.data.message,
-          confirmButtonText: "Continue"
-        }).then(result => {
-          if (result.value) {
-            this.props.history.push("/");
-          }
-        });
+    .then(
+    this.getUserProducts()
+    )
+    .catch(err => {
+      Swal.fire({
+        icon: "error",
+        title: "something went wrong.",
+        text: err.response.data.message,
+        confirmButtonText: "Continue"
+      }).then(result => {
+        if (result.value) {
+          this.props.history.push("/");
+        }
       });
+    });
   }
 
   getUserProducts() {
@@ -89,16 +93,84 @@ class Profile extends Component {
       }
     });
   }
-  editFn = (id) => {
-    this.props.history.push(`/edit-hammer/${id}`)
-  }
-  editProfileFn = (id) => {
-    this.props.history.push(`/edit-profile/${id}`)
-  }
+  editFn = id => {
+    this.props.history.push(`/edit-hammer/${id}`);
+  };
+  editProfileFn = id => {
+    this.props.history.push(`/edit-profile/${id}`);
+  };
 
   product(product_id) {
     this.props.history.push(`/one-hammer/${product_id}`);
-};
+  }
+
+  reduxExample(username){
+    this.props.setUsername(username)
+  }
+
+  do(){
+    console.log('props', this.props.userInfo.username);
+  }
+  async addToCart(id) {
+    await 
+    this.setState({
+      customer_id: this.state.profileData.id,
+      item_id: id,
+      exists:false
+    });
+    this.doesItExist();
+  }
+
+  async doesItExist() {
+    const { customer_id, item_id,} = this.state;
+    await axios.get(`/api/cart/${customer_id}`).then(res => {
+      for (let i = 0; i < res.data.length; i++) {
+        if (this.state.exists === false) {
+        if (res.data[i].item_id === +item_id) {
+          Swal.fire({
+            icon: "warning",
+            title: "Item Already in Cart!",
+            text: `Click on "Cart" in the Navigation bar to access your cart`,
+            confirmButtonText: "Continue",
+            timer: 3500,
+            timerProgressBar: true
+          });
+          this.setState({
+            exists: true
+          });
+        } else if (res.data[i].item_id !== +item_id) {
+          console.log(i, res.data[i].cart_id);
+        }
+        }
+      }
+    })
+    .then(() => {
+      if (this.state.exists === false){
+        this.makeItGo()
+      }
+    })
+  }
+
+  makeItGo() {
+    console.log("hit!");
+    axios
+      .post("/api/cart", this.state)
+      .then(this.success())
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  success() {
+    Swal.fire({
+      icon: "success",
+      title: "Added to cart!",
+      text: `Click on "Cart" in the Navigation bar to access your cart`,
+      confirmButtonText: "Continue",
+      timer: 1500,
+      timerProgressBar: true
+    })
+  }
 
   render() {
     const userProducts = this.state.userProducts.map(item => {
@@ -130,9 +202,19 @@ class Profile extends Component {
             <br />
           </div>
           <div className="buttons">
-            <button className="dashBut" onClick = {() => this.product(item.product_id)}>More Info</button>
-            <button className="dashBut">Add to cart</button>
-            <button className = 'dashBut' onClick={() => this.editFn(item.product_id)}>Edit Hammer</button> 
+            <button
+              className="dashBut"
+              onClick={() => this.product(item.product_id)}
+            >
+              More Info
+            </button>
+            <button className="dashBut" onClick = {() => this.addToCart(item.product_id)}>Add to cart</button>
+            <button
+              className="dashBut"
+              onClick={() => this.editFn(item.product_id)}
+            >
+              Edit Hammer
+            </button>
             <button
               className="dashBut"
               onClick={() => this.deleteFn(item.product_id)}
@@ -146,14 +228,17 @@ class Profile extends Component {
       );
     });
     const { profileData } = this.state;
+    const { userInfo } = this.props;
     return (
       <>
         <div className="upperStuff">
           <div className="left">
             <img className="userImg" src={profileData.profile_pic} alt="oops" />
-            <div className="buttons">
 
-                <button onClick = {() => this.editProfileFn(profileData.id)}>Edit Profile</button>
+            <div className="buttons">
+              <button onClick={() => this.editProfileFn(profileData.id)}>
+                Edit Profile
+              </button>
 
               <Link to="/new-hammer">
                 <button>Add New Product</button>
@@ -161,9 +246,13 @@ class Profile extends Component {
             </div>
           </div>
           <div className="right">
-            <h1>{profileData.username}</h1>
+            
+            <h1>
+              {this.props.userInfo.username}
+            </h1>
 
             <article>{profileData.about}</article>
+            {/* <button onClick = {() => this.do()}>thing</button> */}
           </div>
         </div>
         <div>
@@ -174,5 +263,10 @@ class Profile extends Component {
     );
   }
 }
+function mapStateToProps(reduxState) {
+  return {
+    userInfo: reduxState
+  };
+}
 
-export default Profile;
+export default connect(mapStateToProps, { getUser, setUsername })(MyProfile);

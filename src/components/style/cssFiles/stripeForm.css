@@ -1,0 +1,67 @@
+
+.form-container {
+  position: absolute;
+  display: flex;
+  justify-content: space-evenly;
+  width: 500px;
+  height: 475px;
+  z-index: 5;
+  border: 1px solid black;
+  background: linear-gradient( white, #b5ccd4);
+  border-radius: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.stripe-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 400px;
+  align-items: center;
+  color: rgb(43, 43, 43);
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
+
+.stripe-form input {
+border: none;
+border-radius: 3px;
+height: 20px;
+}
+
+.card-element {
+  background-color: white;
+  width: 80%;
+  height: 20px;
+  font-size: 40px;
+  background: ghostwhite;
+}
+
+.x {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  margin: 10px;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  align-content: center;
+}
+
+.x:hover {
+  cursor: pointer;
+  color: lightgray;
+}
+
+.submit-btn {
+margin: 0 5px;
+background: ghostwhite;
+border-radius: 5px;
+color: #30bced;
+border: none;
+height: 25px;
+font-size: 15px;
+font-weight: 800;
+}

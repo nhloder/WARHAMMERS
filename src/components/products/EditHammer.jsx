@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { v4 as randomString } from 'uuid';
+import Dropzone from 'react-dropzone';
+import { GridLoader } from 'react-spinners';
 
 class EditHammer extends Component {
   constructor(props) {
@@ -12,7 +15,8 @@ class EditHammer extends Component {
       img: "",
       weight: 0,
       length: 0,
-      material: ""
+      material: "",
+      oldPic:''
     };
   }
 
@@ -87,9 +91,9 @@ class EditHammer extends Component {
     });
   }
 
-  handleImg(e) {
+  handleImg(url) {
     this.setState({
-      img: e.target.value
+      img: url
     });
   }
 
@@ -138,6 +142,76 @@ class EditHammer extends Component {
     this.props.history.push('/my-profile')
   }
 
+  async ToggleEdit(){
+    await this.setState({
+      oldPic: this.state.img
+    })
+    // console.log(this.state.oldPic);
+    this.setState({
+      img: ''
+    })
+  }
+
+  async nvm(){
+    // console.log(this.state.oldPic);
+    await this.setState({
+      img:this.state.oldPic
+    })
+
+    this.setState({
+      oldPic:''
+    })
+  }
+
+  getSignedRequest = ([file]) => {
+    this.setState({ isUploading: true });
+
+    const fileName = `${randomString()}-${file.name.replace(/\s/g, "-")}`;
+
+    axios
+      .get("/sign-s3", {
+        params: {
+          "file-name": fileName,
+          "file-type": file.type
+        }
+      })
+      .then(response => {
+        const { signedRequest, url } = response.data;
+        this.uploadFile(file, signedRequest, url);
+        
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  uploadFile = (file, signedRequest, url) => {
+    const options = {
+      headers: {
+        "Content-Type": file.type
+      }
+    };
+
+    axios
+      .put(signedRequest, file, options)
+      .then(response => {
+        this.setState({ isUploading: false, url });
+        this.handleImg(url)
+      })
+      .catch(err => {
+        this.setState({
+          isUploading: false
+        });
+        if (err.response.status === 403) {
+          alert(
+            `Your request for a signed URL failed with a status 403. Double check the CORS configuration and bucket policy in the README. You also will want to double check your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in your .env and ensure that they are the same as the ones that you created in the IAM dashboard. You may need to generate new keys\n${err.stack}`
+          );
+        } else {
+          alert(`ERROR: ${err.status}\n ${err.stack}`);
+        }
+      });
+  };
+
   render() {
     const {
       item_name,
@@ -157,15 +231,55 @@ class EditHammer extends Component {
           <div className="left-new">
             <p>
               Product Image:
-              <input
+              {/* <input
                 type="text"
                 value={img}
                 placeholder="Image"
                 onChange={e => this.handleImg(e)}
                 onKeyPress={this.handleKeyPress}
-              />
+              /> */}
             </p>
-            <img src={img} alt="Nothing here" />
+            {this.state.img ? (
+              <div className = 'rightBox'>
+              <button className="loginButton" onClick = {() => this.ToggleEdit()}>Change Picture</button>
+              <br/>
+              <br/>
+              <img
+              className="newProfilePic"
+              src={img}
+              alt="oops, there's nothing here."
+            />
+            </div>
+            ) : (
+              <div className="rightbox">
+                <button className="loginButton" onClick = {() => this.nvm()}>NeverMind</button>
+              <Dropzone
+                onDropAccepted={this.getSignedRequest}
+                style={{
+                  position: "relative",
+                  width: 200,
+                  height: 200,
+                  borderWidth: 7,
+                  marginTop: 100,
+                  borderColor: "rgb(102, 102, 102)",
+                  borderStyle: "dashed",
+                  borderRadius: 5,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontSize: 28
+                }}
+                accept="image/*"
+                multiple={false}
+                >
+                {this.state.isUploading ? (
+                  <GridLoader />
+                  ) : (
+                    <p>Drop File or Click Here</p>
+                    )}
+              </Dropzone>
+                    </div>
+            )}
           </div>
           <div className="right-new">
             <p>

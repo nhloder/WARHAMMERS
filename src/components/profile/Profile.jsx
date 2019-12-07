@@ -101,6 +101,71 @@ class Profile extends Component {
     });
   }
 
+  async addToCart(id) {
+    await 
+    this.setState({
+      customer_id: this.state.visitorInfo.id,
+      item_id: id,
+      exists:false
+    });
+    this.doesItExist();
+  }
+
+  async doesItExist() {
+    const { customer_id, item_id,} = this.state;
+    await axios.get(`/api/cart/${customer_id}`).then(res => {
+      for (let i = 0; i < res.data.length; i++) {
+        if (this.state.exists === false) {
+        if (res.data[i].item_id === +item_id) {
+          Swal.fire({
+            icon: "warning",
+            title: "Item Already in Cart!",
+            text: `Click on "Cart" in the Navigation bar to access your cart`,
+            confirmButtonText: "Continue",
+            timer: 3500,
+            timerProgressBar: true
+          });
+          this.setState({
+            exists: true
+          });
+        } else if (res.data[i].item_id !== +item_id) {
+          console.log(i, res.data[i].cart_id);
+        }
+        }
+      }
+    })
+    .then(() => {
+      if (this.state.exists === false){
+        // console.log(`Don't exist send`);
+        this.makeItGo()
+      }
+    })
+    // .then(()=>{
+    //   this.setState({exists: false})
+    // })
+  }
+
+  makeItGo() {
+    console.log("hit!");
+    axios
+      .post("/api/cart", this.state)
+      .then(this.success())
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  success() {
+    Swal.fire({
+      icon: "success",
+      title: "Added to cart!",
+      text: `Click on "Cart" in the Navigation bar to access your cart`,
+      confirmButtonText: "Continue",
+      timer: 1500,
+      timerProgressBar: true
+    })
+  }
+
   render() {
     const userProducts = this.state.userProducts.map(item => {
       return (
@@ -132,7 +197,7 @@ class Profile extends Component {
           </div>
           <div className="buttons">
             <button className="dashBut" onClick = {() => this.product(item.product_id)}>More Info</button>
-            <button className="dashBut">Add to cart</button>
+            <button className="dashBut" onClick = {() => this.addToCart(item.product_id)}>Add to cart</button>
             {this.state.visitorInfo.isAdmin === true ? (
               <button
                 className="adminButt"

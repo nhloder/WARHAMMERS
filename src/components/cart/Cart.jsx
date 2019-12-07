@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { StripeProvider, Elements } from "react-stripe-elements";
+import StripeForm from "./StripeForm";
 import "./../style/cssFiles/cart.css";
 
 class Cart extends Component {
@@ -8,7 +10,9 @@ class Cart extends Component {
     super(props);
     this.state = {
       userData: [],
-      userCart: []
+      userCart: [],
+      toggle: false,
+      price:0
     };
   }
 
@@ -56,8 +60,19 @@ class Cart extends Component {
         return val.price;
       })
       .reduce((a, b) => a + b, 0);
-    // console.log(sub);
     return sub;
+  }
+
+  newTotal(){
+    const userCart = this.state
+    const arr = []
+    // for (let i = 0; i < userCart.length;i++){
+      for (let prop in userCart){
+      console.log(`hit, ${userCart.price}`);
+      
+      }
+    // }
+    
   }
 
   product(product_id) {
@@ -101,8 +116,25 @@ class Cart extends Component {
     );
   }
 
+  toggler(){
+    this.setState({
+      toggle: true
+    })
+  }
+
+  toggleBack(){
+    this.setState({
+      toggle:false
+    })
+  }
+
+  do(){
+    console.log('hit');
+  }
+
+
   render() {
-    const { userCart, userData } = this.state;
+    const { userCart, userData, price } = this.state;
     const cartData = userCart.map(cart => {
       return (
         <div key={cart.cart_id}>
@@ -143,9 +175,11 @@ class Cart extends Component {
         </div>
       );
     });
+
     return (
       <>
         <div className="upperCart">
+          {/* {this.total()} */}
           <div className="cart-leftbit">
             <img
               src={userData.profile_pic}
@@ -156,7 +190,22 @@ class Cart extends Component {
           </div>
           <div className="cart-rightbit">
             <h2>Your total is ${this.total()}</h2>
-            <button className="checkout">Checkout</button>
+            {/* <button className="checkout" onClick={() => this.toggler()}>
+              Checkout
+            </button> */}
+            
+              {/* // <StripeProvider apiKey="pk_test_MJb70FFgAaW092m4tnZi2ueq00fexM1NUc"> */}
+              
+                {/* <Elements> */}
+                  <StripeForm
+                  toggle = {this.state.toggle}
+                  cart = {this.state.userCart}
+                  name = {this.state.userData.username}
+                  id = {this.state.userData.id}
+                  />
+                {/* </Elements> */}
+              {/* // </StripeProvider> */}
+            
           </div>
         </div>
         <hr />
@@ -176,3 +225,47 @@ class Cart extends Component {
 }
 
 export default Cart;
+
+
+
+// total() {
+//   for (let i = 0; i < this.state.userCart.length; i++) {
+//     this.state.newArr.push(this.state.userCart[i].price);
+//   }
+//   // this.add()
+// }
+
+// add() {
+//   const { price, newArr } = this.state;
+//   // console.log("here",this.sum(newArr));
+//   let thing = this.sum(newArr);
+//   console.log(thing, "blah");
+//   this.setState({
+//     price: thing
+//   })
+// }
+
+// // newTotal(){
+// //   const userCart = this.state
+// //   const arr = []
+// //   // for (let i = 0; i < userCart.length;i++){
+// //     for (let prop in userCart){
+// //     console.log(`hit, ${userCart.price}`);
+
+// //     }
+// //   // }
+
+// // }
+
+// sum(input) {
+//   if (toString.call(input) !== "[object Array]") return false;
+
+//   var total = 0;
+//   for (var i = 0; i < input.length; i++) {
+//     if (isNaN(input[i])) {
+//       continue;
+//     }
+//     total += Number(input[i]);
+//   }
+//   return total;
+// }
