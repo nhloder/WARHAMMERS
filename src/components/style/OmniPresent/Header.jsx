@@ -94,24 +94,24 @@ class Header extends Component {
             src="http://icons.iconarchive.com/icons/google/noto-emoji-objects/256/62957-hammer-and-pick-icon.png"
             alt="oops"
           />
-          <h1> WARHAMMERS' R' US </h1>
+          <h1> WARHAMMERS-R-US </h1>
         </div>
-        <nav>
+        <nav className = 'bar'>
           <Link to="/">
-            <button>Home</button>
+            <button className = 'navButtons'>Home</button>
           </Link>
 
-          <button onClick={() => this.holUpProfile()}>My Profile</button>
+          <button className = 'navButtons' onClick={() => this.holUpProfile()}>My Profile</button>
 
-            <button onClick={() => this.holUpCart()}>Cart</button>
+            <button className = 'navButtons' onClick={() => this.holUpCart()}>Cart</button>
 
 
           {!this.state.username ? (
             <Link to="/login">
-              <button>Login</button>
+              <button className = 'navButtons'>Login</button>
             </Link>
           ) : (
-            <button onClick={() => this.logout()}>Logout</button>
+            <button onClick={() => this.logout()} className = 'navButtons'>Logout</button>
           )}
         </nav>
         {this.state.username ? (

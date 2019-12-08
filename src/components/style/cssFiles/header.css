@@ -18,7 +18,7 @@ header {
   align-items: center;
   align-content: center;
   color: white;
-  font-size: 2.6vh
+  font-size: 100%;
 }
 img {
   max-width: 4vw;
@@ -38,3 +38,20 @@ img {
   max-height: 100%;
   margin-right: 10px;
 }
+
+.bar{
+  display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+  align-content: center;
+  width: 30%;
+}
+.navButtons{
+  background-color:#99A6A9;
+  font-size: 20px;
+  height: 50%;
+  margin: 8px;
+}
+

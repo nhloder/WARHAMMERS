@@ -16,6 +16,7 @@ max-width: 50%;
 }
 .right-dash p{
   font-size:20px;
+  /* font-family: 'Lora', serif; */
 }
 .profile{
   display: flex;

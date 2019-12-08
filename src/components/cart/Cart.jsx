@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { StripeProvider, Elements } from "react-stripe-elements";
+// import { StripeProvider, Elements } from "react-stripe-elements";
 import StripeForm from "./StripeForm";
 import "./../style/cssFiles/cart.css";
 
@@ -12,7 +12,8 @@ class Cart extends Component {
       userData: [],
       userCart: [],
       toggle: false,
-      price:0
+      price: 1,
+      id:''
     };
   }
 
@@ -26,7 +27,8 @@ class Cart extends Component {
       .get(`/api/user/${id}`)
       .then(res => {
         this.setState({
-          userData: res.data[0]
+          userData: res.data[0],
+          id:id
         });
       })
       .catch(err => {
@@ -45,10 +47,14 @@ class Cart extends Component {
   }
 
   getCart(id) {
-    axios.get(`/api/cart/${id}`).then(res => {
-      // console.log(res.data);
+    axios.get(`/api/cart/${id}`).then((res) => {
+      let sub = res.data.map(val => {
+          return val.price;
+        })
+        .reduce((price1, price2) => price1 + price2, 0)
       this.setState({
-        userCart: res.data
+        userCart: res.data,
+        price: sub
       });
     });
   }
@@ -59,21 +65,21 @@ class Cart extends Component {
       .map(val => {
         return val.price;
       })
-      .reduce((a, b) => a + b, 0);
-    return sub;
+      .reduce((price1, price2) => price1 + price2, 0)
+
+      return sub
   }
 
-  newTotal(){
-    const userCart = this.state
-    const arr = []
-    // for (let i = 0; i < userCart.length;i++){
-      for (let prop in userCart){
-      console.log(`hit, ${userCart.price}`);
-      
-      }
-    // }
-    
-  }
+  // newTotal(){
+  //   const userCart = this.state
+  //   const arr = []
+  //   // for (let i = 0; i < userCart.length;i++){
+  //     for (let prop in userCart){
+  //     console.log(`hit, ${userCart.price}`);
+  //     }
+  //   // }
+
+  // }
 
   product(product_id) {
     this.props.history.push(`/one-hammer/${product_id}`);
@@ -116,27 +122,27 @@ class Cart extends Component {
     );
   }
 
-  toggler(){
+  toggler() {
     this.setState({
       toggle: true
-    })
+    });
   }
 
-  toggleBack(){
+  toggleBack() {
     this.setState({
-      toggle:false
-    })
+      toggle: false
+    });
   }
 
-  do(){
-    console.log('hit');
+  do() {
+    console.log("hit");
   }
-
 
   render() {
     const { userCart, userData, price } = this.state;
     const cartData = userCart.map(cart => {
       return (
+        
         <div key={cart.cart_id}>
           <div className="lowerCart">
             <div className="cart-leftbit">
@@ -189,23 +195,15 @@ class Cart extends Component {
             <h1> {userData.username}'s Cart: </h1>
           </div>
           <div className="cart-rightbit">
-            <h2>Your total is ${this.total()}</h2>
+            <h2>Your total is ${price}</h2>
             {/* <button className="checkout" onClick={() => this.toggler()}>
               Checkout
             </button> */}
-            
-              {/* // <StripeProvider apiKey="pk_test_MJb70FFgAaW092m4tnZi2ueq00fexM1NUc"> */}
-              
-                {/* <Elements> */}
-                  <StripeForm
-                  toggle = {this.state.toggle}
-                  cart = {this.state.userCart}
-                  name = {this.state.userData.username}
-                  id = {this.state.userData.id}
-                  />
-                {/* </Elements> */}
-              {/* // </StripeProvider> */}
-            
+            <StripeForm 
+            name={this.state.userData.username} 
+            price={price} 
+            id = {this.state.id}
+            />
           </div>
         </div>
         <hr />
@@ -217,55 +215,9 @@ class Cart extends Component {
           >
             Clear Cart
           </button>
-          <button className="checkout">Checkout</button>
         </div>
       </>
     );
   }
 }
-
 export default Cart;
-
-
-
-// total() {
-//   for (let i = 0; i < this.state.userCart.length; i++) {
-//     this.state.newArr.push(this.state.userCart[i].price);
-//   }
-//   // this.add()
-// }
-
-// add() {
-//   const { price, newArr } = this.state;
-//   // console.log("here",this.sum(newArr));
-//   let thing = this.sum(newArr);
-//   console.log(thing, "blah");
-//   this.setState({
-//     price: thing
-//   })
-// }
-
-// // newTotal(){
-// //   const userCart = this.state
-// //   const arr = []
-// //   // for (let i = 0; i < userCart.length;i++){
-// //     for (let prop in userCart){
-// //     console.log(`hit, ${userCart.price}`);
-
-// //     }
-// //   // }
-
-// // }
-
-// sum(input) {
-//   if (toString.call(input) !== "[object Array]") return false;
-
-//   var total = 0;
-//   for (var i = 0; i < input.length; i++) {
-//     if (isNaN(input[i])) {
-//       continue;
-//     }
-//     total += Number(input[i]);
-//   }
-//   return total;
-// }

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 class Profile extends Component {
   constructor(props) {

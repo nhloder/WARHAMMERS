@@ -228,7 +228,6 @@ class MyProfile extends Component {
       );
     });
     const { profileData } = this.state;
-    const { userInfo } = this.props;
     return (
       <>
         <div className="upperStuff">

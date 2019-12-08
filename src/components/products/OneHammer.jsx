@@ -325,6 +325,7 @@ class OneHammer extends Component {
               <div>
                 <button onClick={() => this.addComment()}>Add Comment</button>
               </div>
+        <br/><br/><br/>
             </div>
           )}
         </div>
