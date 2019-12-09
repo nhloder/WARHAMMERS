@@ -14,7 +14,7 @@ function StripeForm(props) {
   // }, [props])
 
   async function handleToken(token, addresses) {
-    const response = await axios.post("/checkout", { token, product });
+    const response = await axios.post("/checkout", { token, product: props.price });
     const { status } = response.data;
     console.log("Response:", response.data);
     console.log("product", product);

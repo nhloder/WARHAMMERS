@@ -12,7 +12,7 @@ class Cart extends Component {
       userData: [],
       userCart: [],
       toggle: false,
-      price: 1,
+      price: 0,
       id:''
     };
   }
@@ -48,15 +48,23 @@ class Cart extends Component {
 
   getCart(id) {
     axios.get(`/api/cart/${id}`).then((res) => {
-      let sub = res.data.map(val => {
+      if (res.data.length > 0){
+
+        let sub = res.data.map(val => {
           return val.price;
         })
         .reduce((price1, price2) => price1 + price2, 0)
-      this.setState({
-        userCart: res.data,
-        price: sub
+        this.setState({
+          userCart: res.data,
+          price: sub
+        });
+      } else {
+        this.setState({
+          userCart: res.data,
+          price: res.data.price
+        })
+      }
       });
-    });
   }
 
   total() {
