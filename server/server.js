@@ -28,10 +28,6 @@ const app = express();
 // HOSTING STUFF \\
 app.use( express.static( `${__dirname}/../build` ) );
 
-// app.get('*', (req, res)=>{
-//     res.sendFile(path.join(__dirname, '../build/index.html'));
-// });
-
 // TOP LEVEL MIDDLEWARE \\
 app.use(express.json());
 
@@ -152,16 +148,6 @@ app.post("/checkout", async (req, res) => {
         customer: customer.id,
         receipt_email: token.email,
         description: `Purchased the ${product.name}`,
-        // shipping: {
-        //   name: token.card.name,
-        //   address: {
-        //     line1: token.card.address_line1,
-        //     line2: token.card.address_line2,
-        //     city: token.card.address_city,
-        //     country: token.card.address_country,
-        //     postal_code: token.card.address_zip
-        //   }
-        // }
       },
       {
         idempotency_key
@@ -176,25 +162,3 @@ app.post("/checkout", async (req, res) => {
 
   res.json({ error, status });
 });
-
-
-// const charge = (token, amt) => {
-//     return stripe.charges.create({
-//         amount: +(amt * 100),
-//         currency: 'usd',
-//         source: token,
-//         description: "Statement Description"
-//     })
-// }
-
-// app.post('/auth/payment', async (req, res, next) => {
-//     console.log(req.body)
-//     try {
-//         let data = await charge(req.body.token.id, req.body.amount);
-//         console.log(data);
-//         res.send("Charged");
-//     } catch(e) {
-//         console.log(e)
-//         res.status(500)
-//     }
-// })

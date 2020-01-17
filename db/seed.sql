@@ -13,7 +13,7 @@ CREATE TABLE cart(
 	item_id int REFERENCES products(product_id)
 );
 CREATE TABLE hash(
-	hash_id SERIAL PRIMARY KEY[]
+	hash_id SERIAL PRIMARY KEY
 	hash TEXT
 );
 CREATE TABLE products(

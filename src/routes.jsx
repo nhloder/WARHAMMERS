@@ -1,6 +1,6 @@
 import React from "react";
-import Dash from "./components/dash/Dash";
 import { Switch, Route } from "react-router-dom";
+import Dash from "./components/dash/Dash";
 import Login from "./components/profile/Login";
 import Register from "./components/profile/Register";
 import EditProfile from "./components/profile/EditProfile";

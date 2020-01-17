@@ -35,7 +35,8 @@ class Profile extends Component {
             this.props.history.push("/");
           }
         });
-      }).then(
+      })
+      .then(
         axios.get("/api/userInfo").then(res => {
           this.setState({
             visitorInfo: res.data
@@ -46,7 +47,7 @@ class Profile extends Component {
 
   product(product_id) {
     this.props.history.push(`/one-hammer/${product_id}`);
-};
+  }
 
   getProducts() {
     axios.get(`/api/userProducts/${this.props.match.params.id}`).then(res => {
@@ -90,7 +91,7 @@ class Profile extends Component {
             }).then(result => {
               if (result.value) {
                 window.location.reload();
-              } else if (result.dismiss === Swal.DismissReason.timer){
+              } else if (result.dismiss === Swal.DismissReason.timer) {
                 window.location.reload();
               }
             });
@@ -101,44 +102,45 @@ class Profile extends Component {
   }
 
   async addToCart(id) {
-    await 
-    this.setState({
+    await this.setState({
       customer_id: this.state.visitorInfo.id,
       item_id: id,
-      exists:false
+      exists: false
     });
     this.doesItExist();
   }
 
   async doesItExist() {
-    const { customer_id, item_id,} = this.state;
-    await axios.get(`/api/cart/${customer_id}`).then(res => {
-      for (let i = 0; i < res.data.length; i++) {
+    const { customer_id, item_id } = this.state;
+    await axios
+      .get(`/api/cart/${customer_id}`)
+      .then(res => {
+        for (let i = 0; i < res.data.length; i++) {
+          if (this.state.exists === false) {
+            if (res.data[i].item_id === +item_id) {
+              Swal.fire({
+                icon: "warning",
+                title: "Item Already in Cart!",
+                text: `Click on "Cart" in the Navigation bar to access your cart`,
+                confirmButtonText: "Continue",
+                timer: 3500,
+                timerProgressBar: true
+              });
+              this.setState({
+                exists: true
+              });
+            } else if (res.data[i].item_id !== +item_id) {
+              console.log(i, res.data[i].cart_id);
+            }
+          }
+        }
+      })
+      .then(() => {
         if (this.state.exists === false) {
-        if (res.data[i].item_id === +item_id) {
-          Swal.fire({
-            icon: "warning",
-            title: "Item Already in Cart!",
-            text: `Click on "Cart" in the Navigation bar to access your cart`,
-            confirmButtonText: "Continue",
-            timer: 3500,
-            timerProgressBar: true
-          });
-          this.setState({
-            exists: true
-          });
-        } else if (res.data[i].item_id !== +item_id) {
-          console.log(i, res.data[i].cart_id);
+          // console.log(`Don't exist send`);
+          this.makeItGo();
         }
-        }
-      }
-    })
-    .then(() => {
-      if (this.state.exists === false){
-        // console.log(`Don't exist send`);
-        this.makeItGo()
-      }
-    })
+      });
     // .then(()=>{
     //   this.setState({exists: false})
     // })
@@ -162,7 +164,7 @@ class Profile extends Component {
       confirmButtonText: "Continue",
       timer: 1500,
       timerProgressBar: true
-    })
+    });
   }
 
   render() {
@@ -195,8 +197,18 @@ class Profile extends Component {
             <br />
           </div>
           <div className="buttons">
-            <button className="dashBut" onClick = {() => this.product(item.product_id)}>More Info</button>
-            <button className="dashBut" onClick = {() => this.addToCart(item.product_id)}>Add to cart</button>
+            <button
+              className="dashBut"
+              onClick={() => this.product(item.product_id)}
+            >
+              More Info
+            </button>
+            <button
+              className="dashBut"
+              onClick={() => this.addToCart(item.product_id)}
+            >
+              Add to cart
+            </button>
             {this.state.visitorInfo.isAdmin === true ? (
               <button
                 className="adminButt"
@@ -217,10 +229,10 @@ class Profile extends Component {
         <div className="upperStuff">
           <div className="left">
             <img className="userImg" src={userInfo.profile_pic} alt="oops" />
-           <br/>
-           <br/>
-           <br/>
-           <br/>
+            <br />
+            <br />
+            <br />
+            <br />
           </div>
           <div className="right">
             <h1>{userInfo.username}</h1>

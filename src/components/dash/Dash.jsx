@@ -111,7 +111,6 @@ class Dash extends Component {
     } else {
       this.props.history.push(`/profile/${seller_id}`);
       axios.get(`/api/user/${seller_id}`);
-      // console.log('hit')
     }
   }
 

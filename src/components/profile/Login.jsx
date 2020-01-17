@@ -4,7 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { connect } from "react-redux";
 import { setUsername } from "../../dux/reducer";
-import './../style/cssFiles/login.css'
+import "./../style/cssFiles/login.css";
 
 class Login extends Component {
   constructor(props) {
@@ -28,9 +28,9 @@ class Login extends Component {
       })
       .catch(err => {
         Swal.fire({
-          icon: 'error',
+          icon: "error",
           text: err.response.data.message
-          });
+        });
       });
   }
 
@@ -41,19 +41,20 @@ class Login extends Component {
       text: "Welcome back",
       confirmButtonText: "Continue",
       timer: 900,
-      timerProgressBar:true
+      timerProgressBar: true
     }).then(result => {
       if (result.value) {
         this.props.history.push("/");
         window.location.reload();
-      } else if (result.dismiss === Swal.DismissReason.timer){
-        this.props.history.push('/')
-        window.location.reload();}
+      } else if (result.dismiss === Swal.DismissReason.timer) {
+        this.props.history.push("/");
+        window.location.reload();
+      }
     });
   }
 
   handleKeyPress = event => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       this.login();
     }
   };
@@ -80,11 +81,16 @@ class Login extends Component {
             placeholder="E-mail"
             onKeyPress={this.handleKeyPress}
           />
-          
+
           <p>Password:</p>
-          <input type="password" onChange={e => this.handlePass(e)}  placeholder = 'Password' onKeyPress={this.handleKeyPress}/>
-          <br/>
-          <button onClick={() => this.login()} >Login</button>
+          <input
+            type="password"
+            onChange={e => this.handlePass(e)}
+            placeholder="Password"
+            onKeyPress={this.handleKeyPress}
+          />
+          <br />
+          <button onClick={() => this.login()}>Login</button>
           <p>Not a member?</p>
           <Link to="/register">
             <button>Sign Up!</button>
