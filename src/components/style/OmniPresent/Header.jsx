@@ -116,7 +116,7 @@ class Header extends Component {
         {this.state.username ? (
           <div className="user">
             <Link to="/my-profile">
-              <img className="profilepic" src={this.state.profile} alt="oops" />
+              <img className="profilePicHead" src={this.state.profile} alt="oops" />
             </Link>
             <p>
               {" "}

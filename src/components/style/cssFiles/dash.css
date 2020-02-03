@@ -33,6 +33,8 @@ max-width: 50%;
   border-radius: 48%;
   border: solid 4px;
   border-color:grey;
+  max-width: 4vw;
+  max-height: 100%;
 }
 .username{
   margin: 30px;

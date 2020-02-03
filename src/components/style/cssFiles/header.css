@@ -20,7 +20,7 @@ header {
   color: white;
   font-size: 100%;
 }
-img {
+.logo {
   max-width: 4vw;
   max-height: 4vh;
 }
@@ -33,12 +33,12 @@ img {
 	align-content: space-around;
   color: white;
 }
-.profilepic {
+.profilePicHead {
   border-radius: 50%;
+  max-width: 4vw;
   max-height: 100%;
   margin-right: 10px;
 }
-
 .bar{
   display: flex;
 	flex-direction: row;
@@ -56,5 +56,24 @@ img {
 }
 
 @media(max-width:425px){
-  
+  .bar{
+    display:none;
+  }
+  .user{
+    display: none
+  }
+  .title {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    color: white;
+    font-size: 80%;
+  }
+  .logo{
+    max-width: 7vw;
+    max-height: 7vh;
+  }
 }
