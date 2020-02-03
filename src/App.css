@@ -1,9 +1,7 @@
 body {
-  background:
-  /* #AC867D; */ #ddbea8;
-  
+  background: #e6c8b3;
 }
-.App{
+.App {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -24,9 +22,9 @@ footer {
 }
 hr {
   border: 0;
-  clear:both;
-  display:block;
-  width: 100%;               
-  background-color:black;
+  clear: both;
+  display: block;
+  width: 100%;
+  background-color: black;
   height: 1px;
 }

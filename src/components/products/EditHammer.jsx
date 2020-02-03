@@ -231,13 +231,6 @@ class EditHammer extends Component {
           <div className="left-new">
             <p>
               Product Image:
-              {/* <input
-                type="text"
-                value={img}
-                placeholder="Image"
-                onChange={e => this.handleImg(e)}
-                onKeyPress={this.handleKeyPress}
-              /> */}
             </p>
             {this.state.img ? (
               <div className = 'rightBox'>
@@ -338,6 +331,8 @@ class EditHammer extends Component {
             ></textarea>
           </div>
         </div>
+        <br/>
+        <br/>
         <div className="new-buttons">
           <button onClick = {() => this.onCancel()}>Cancel</button>
           <button onClick={() => this.editHammer()}>Edit Hammer</button>

@@ -1,75 +1,76 @@
-.register{
+.register {
   display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: space-around;
-	align-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
   align-content: space-around;
   padding: 2vh;
   max-width: 100%;
 }
-.top{
+.top {
   display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-around;
-	align-items: center;
-	align-content: stretch;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: stretch;
 }
-.name{
+.name {
   margin-right: 8px;
 }
-.password{
+.password {
   margin-left: 8px;
 }
-.login{
+.login {
   display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: space-around;
-	align-items: center;
-	align-content: space-around;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: space-around;
 }
-.loginButton{
-  background-color:#F3DFC1;
+.loginButton {
+  background-color: #f3dfc1;
   height: 30px;
   width: 80px;
 }
-.boxContainer{
+.boxContainer {
   display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-around;
-	align-items: center;
-	align-content: stretch;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: stretch;
 }
-.leftBox{
+.leftBox {
   display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: space-around;
-	align-items: center;
-	align-content: stretch;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: stretch;
   margin: 8px;
 }
-.about{
+.about {
   font-size: 16px;
   resize: none;
-  height:300px;
+  height: 300px;
   width: 400px;
 }
-.rightBox{
+.rightBox {
   min-width: 400px;
   margin: 8px;
+  max-height: 90%;
 }
-.newProfilePic{
-/* min-width: 400px;
+.newProfilePic {
+  /* min-width: 400px;
 min-height: 300px; */
-max-width: 450px;
-max-height: 450px;
+  max-width: 85%;
+  max-height: 85%;
 }
-.registerButton{
-  background-color:#F3DFC1;
+.registerButton {
+  background-color: #f3dfc1;
   height: 30px;
   width: 80px;
 }
