@@ -74,3 +74,40 @@ min-height: 300px; */
   height: 30px;
   width: 80px;
 }
+
+@media (max-width: 425px) {
+  .boxContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: stretch;
+  }
+  .leftBox {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: stretch;
+    margin: 8px;
+  }
+  .about {
+    font-size: 16px;
+    resize: none;
+    height: 225px;
+    width: 330px;
+  }
+  .rightBox {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    min-width: 400px;
+    margin: 8px;
+    max-height: 90%;
+  }
+}

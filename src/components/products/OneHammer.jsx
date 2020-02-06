@@ -280,7 +280,7 @@ class OneHammer extends Component {
           <div className="leftBit">
             <div className="profileBit">
               <img
-                className="profilePic2"
+                className="profilePic"
                 src={profile_pic}
                 alt="theres nothing here"
                 onClick={() => this.profile(this.state.seller_id)}

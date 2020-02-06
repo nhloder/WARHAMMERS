@@ -43,14 +43,7 @@ class Register extends Component {
     ) {
       axios
         .post("/api/user", this.state)
-        // .then(
-        //   axios.post("/api/login", {
-        //     email: email,
-        //     password: password
-        //   })
-        // )
         .then(res => {
-          
           this.success();
         })
         .catch(err => {
@@ -84,48 +77,16 @@ class Register extends Component {
       confirmButtonText: "Continue"
     }).then(result => {
       if (result.value) {
-        this.props.history.push("/login");
+        axios
+          .post("/api/login", {
+            email: this.state.email,
+            password: this.state.password
+          })
+          .then(this.props.history.push("/"));
       }
     });
   }
 
-  handleUsername(e) {
-    this.setState({
-      username: e.target.value
-    });
-    // console.log(this.state);
-  }
-
-  handlePassword(e) {
-    this.setState({
-      password: e.target.value
-    });
-  }
-
-  handlePassword2(e) {
-    this.setState({
-      password2: e.target.value
-    });
-  }
-
-  handleAbout(e) {
-    this.setState({
-      about: e.target.value
-    });
-  }
-
-  handleImage(url) {
-    this.setState({
-      profile_pic: url
-    });
-    // console.log('hit', url);
-  }
-
-  handleEmail(e) {
-    this.setState({
-      email: e.target.value
-    });
-  }
   getSignedRequest = ([file]) => {
     this.setState({ isUploading: true });
 
@@ -141,7 +102,6 @@ class Register extends Component {
       .then(response => {
         const { signedRequest, url } = response.data;
         this.uploadFile(file, signedRequest, url);
-        
       })
       .catch(err => {
         console.log(err);
@@ -159,23 +119,31 @@ class Register extends Component {
       .put(signedRequest, file, options)
       .then(response => {
         this.setState({ isUploading: false, url });
-        this.handleImage(url)
+        this.handleChange("profile_pic", url);
       })
       .catch(err => {
         this.setState({
           isUploading: false
         });
-        if (err.response.status === 403) {
-          alert(
-            `Your request for a signed URL failed with a status 403. Double check the CORS configuration and bucket policy in the README. You also will want to double check your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in your .env and ensure that they are the same as the ones that you created in the IAM dashboard. You may need to generate new keys\n${err.stack}`
-          );
-        } else {
-          alert(`ERROR: ${err.status}\n ${err.stack}`);
-        }
+        alert(`ERROR: ${err.status}\n ${err.stack}`);
       });
   };
 
+  handleChange = (key, value) => {
+    this.setState({
+      [key]: value
+    });
+  };
+
   render() {
+    let {
+      username,
+      email,
+      password,
+      password2,
+      about,
+      profile_pic
+    } = this.state;
     return (
       <div className="register">
         <div className="top">
@@ -184,14 +152,13 @@ class Register extends Component {
             <input
               type="text"
               placeholder="Username"
-              onChange={e => this.handleUsername(e)}
+              onChange={e => this.handleChange("username", e.target.value)}
             />
-            {/* <br /> */}
             <p>E-mail:</p>
             <input
               type="text"
               placeholder="e-mail"
-              onChange={e => this.handleEmail(e)}
+              onChange={e => this.handleChange("email", e.target.value)}
             />
           </div>
           <div className="password">
@@ -199,14 +166,14 @@ class Register extends Component {
             <input
               type="password"
               placeholder="Password"
-              onChange={e => this.handlePassword(e)}
+              onChange={e => this.handleChange("password", e.target.value)}
             />
 
             <p>Confirm Password: </p>
             <input
               type="password"
               placeholder="Confirm Password"
-              onChange={e => this.handlePassword2(e)}
+              onChange={e => this.handleChange("password2", e.target.value)}
             />
           </div>
         </div>
@@ -223,25 +190,24 @@ class Register extends Component {
 
         <div className="boxContainer">
           <div className="leftBox">
-            <p>Tell us about yourself!</p>
-            <textarea className="about" onChange={e => this.handleAbout(e)} />
+            <h3>Tell us about yourself!</h3>
+            <textarea
+              className="about"
+              onChange={e => this.handleChange("about", e.target.value)}
+            />
           </div>
 
           <div className="rightBox">
-            <p>Got a good Picture?</p>
-            {/* <input
-              type="text"
-              placeholder="image url"
-              onChange={e => this.handleImage(e)}
-            />
-            <br /> */}
-            <br />
+            <h3>Got a good Picture?</h3>
             {this.state.profile_pic ? (
-              <img
-                className="newProfilePic"
-                src={this.state.profile_pic}
-                alt="oops, there's nothing here."
-              />
+              <div>
+                <br />
+                <img
+                  className="newProfilePic"
+                  src={this.state.profile_pic}
+                  alt="oops, there's nothing here."
+                />
+              </div>
             ) : (
               <Dropzone
                 onDropAccepted={this.getSignedRequest}

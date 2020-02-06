@@ -41,14 +41,15 @@ class Header extends Component {
       text: "Come Back Soon!",
       confirmButtonText: "Continue",
       timer: 1500,
-      timerProgressBar:true
+      timerProgressBar: true
     }).then(result => {
       if (result.value) {
         this.props.history.push("/");
         window.location.reload();
-      } else if (result.dismiss === Swal.DismissReason.timer){
-        this.props.history.push('/')
-        window.location.reload();}
+      } else if (result.dismiss === Swal.DismissReason.timer) {
+        this.props.history.push("/");
+        window.location.reload();
+      }
     });
   }
 
@@ -83,6 +84,9 @@ class Header extends Component {
       });
     }
   }
+  goHome() {
+    this.props.history.push("/");
+  }
 
   render() {
     return (
@@ -93,30 +97,49 @@ class Header extends Component {
             src="http://icons.iconarchive.com/icons/google/noto-emoji-objects/256/62957-hammer-and-pick-icon.png"
             alt="oops"
           />
-          <h1> WARHAMMERS-R-US </h1>
+          <h1>WARHAMMERS-R-US</h1>
+
+          <Link to="/login">
+          <button className="toggle-button" >
+            <div className="toggle-button__line" />
+
+            <div className="toggle-button__line" />
+
+            <div className="toggle-button__line" />
+          </button>
+            </Link>
         </div>
-        <nav className = 'bar'>
+        <nav className="bar">
           <Link to="/">
-            <button className = 'navButtons'>Home</button>
+            <button className="navButtons">Home</button>
           </Link>
 
-          <button className = 'navButtons' onClick={() => this.holUpProfile()}>My Profile</button>
+          <button className="navButtons" onClick={() => this.holUpProfile()}>
+            My Profile
+          </button>
 
-            <button className = 'navButtons' onClick={() => this.holUpCart()}>Cart</button>
-
+          <button className="navButtons" onClick={() => this.holUpCart()}>
+            Cart
+          </button>
 
           {!this.state.username ? (
             <Link to="/login">
-              <button className = 'navButtons'>Login</button>
+              <button className="navButtons">Login</button>
             </Link>
           ) : (
-            <button onClick={() => this.logout()} className = 'navButtons'>Logout</button>
+            <button onClick={() => this.logout()} className="navButtons">
+              Logout
+            </button>
           )}
         </nav>
         {this.state.username ? (
           <div className="user">
             <Link to="/my-profile">
-              <img className="profilePicHead" src={this.state.profile} alt="oops" />
+              <img
+                className="profilePicHead"
+                src={this.state.profile}
+                alt="oops"
+              />
             </Link>
             <p>
               {" "}

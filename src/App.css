@@ -1,5 +1,6 @@
 body {
   background: #e6c8b3;
+  max-width: 100%;
 }
 .App {
   display: flex;

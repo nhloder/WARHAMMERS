@@ -2,7 +2,7 @@ header {
   background-color: #667987;
   /* #246a73 */
   height: 95px;
-  width: 100vw;
+  width: 101%;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -75,5 +75,30 @@ header {
   .logo{
     max-width: 7vw;
     max-height: 7vh;
+  }
+  .title h1{
+    margin-right: 15px;
+    }
+  .toggle-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 24px;
+    width: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .toggle-button:focus {
+    outline: none;
+  }
+  
+  .toggle-button__line {
+    width: 30px;
+    height: 2px;
+    background: white;
   }
 }
