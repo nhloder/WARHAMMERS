@@ -135,15 +135,13 @@ class Register extends Component {
     });
   };
 
+  handleKeyPress = event => {
+    if (event.key === 'Enter') {
+      this.finalize();
+    }
+  };
+
   render() {
-    let {
-      username,
-      email,
-      password,
-      password2,
-      about,
-      profile_pic
-    } = this.state;
     return (
       <div className="register">
         <div className="top">

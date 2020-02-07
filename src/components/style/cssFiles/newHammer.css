@@ -46,5 +46,38 @@ margin: 8px;
   background-color:#F3DFC1;
   font-size: 20px;
   height: 50px;
-  margin-bottom: 8px;
+  margin: 8px;
+}
+@media (max-width: 425px){
+  .newHammerBody{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .newHammer{
+    display: flex;
+	flex-direction: column-reverse;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  }
+  .left-new{
+    height: 50%;
+  }
+  .right-new{
+    height: 50%;
+  }
+  .right-new button{
+    width: 80%;
+    height:70%;
+  }
+  .right-new textarea{
+    resize: none;
+    width:100%;
+    height: 70%;
+    font-size: 18px;
+  }
 }

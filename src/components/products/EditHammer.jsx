@@ -233,7 +233,7 @@ class EditHammer extends Component {
               Product Image:
             </p>
             {this.state.img ? (
-              <div className = 'rightBox'>
+              <div className = 'right-new'>
               <button className="loginButton" onClick = {() => this.ToggleEdit()}>Change Picture</button>
               <br/>
               <br/>
@@ -244,7 +244,7 @@ class EditHammer extends Component {
             />
             </div>
             ) : (
-              <div className="rightbox">
+              <div className="right-new">
                 <button className="loginButton" onClick = {() => this.nvm()}>NeverMind</button>
               <Dropzone
                 onDropAccepted={this.getSignedRequest}
@@ -253,7 +253,7 @@ class EditHammer extends Component {
                   width: 200,
                   height: 200,
                   borderWidth: 7,
-                  marginTop: 100,
+                  marginTop: 20,
                   borderColor: "rgb(102, 102, 102)",
                   borderStyle: "dashed",
                   borderRadius: 5,

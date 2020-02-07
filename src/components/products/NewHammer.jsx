@@ -34,8 +34,6 @@ class NewHammer extends Component {
           userInfo: res.data,
           seller_id: res.data.id
         });
-        // console.log(this.state.seller_id);
-        //! ^^^ this console log stays I need to make sure the seller Id is correct.
       })
       .catch(err => {
         Swal.fire({
@@ -104,46 +102,16 @@ class NewHammer extends Component {
     });
 	}
 
+  handleChange = (key, value) => {
+    this.setState({
+      [key]: value
+    });
+  };
+
   handleImg(url) {
     this.setState({
-      img: url
-    });
-  }
-
-  handleName(e) {
-    this.setState({
-      item_name: e.target.value
-    });
-  }
-
-  handlePrice(e) {
-    this.setState({
-      price: e.target.value
-    });
-  }
-
-  handleDescription(e) {
-    this.setState({
-      description: e.target.value
-    });
-  }
-
-  handleWeight(e) {
-    this.setState({
-      weight: e.target.value
-    });
-  }
-
-  handleLength(e) {
-    this.setState({
-      length: e.target.value
-    });
-  }
-
-  handleMaterial(e) {
-    this.setState({
-      material: e.target.value
-    });
+      img:url
+    })
   }
   handleKeyPress = event => {
     if (event.key === 'Enter') {
@@ -190,36 +158,27 @@ class NewHammer extends Component {
         this.setState({
           isUploading: false
         });
-        if (err.response.status === 403) {
-          alert(
-            `Your request for a signed URL failed with a status 403. Double check the CORS configuration and bucket policy in the README. You also will want to double check your AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY in your .env and ensure that they are the same as the ones that you created in the IAM dashboard. You may need to generate new keys\n${err.stack}`
-          );
-        } else {
+        
           alert(`ERROR: ${err.status}\n ${err.stack}`);
-        }
+        
       });
   };
 
   render() {
     const {
-      // item_name,
-      // price,
-      // description,
       img,
-      // weight,
-      // length,
-      // material
     } = this.state;
     return (
-      <>
+      <div className = 'newHammerBody'>
         <h1>Add New Hammer</h1>
         <hr />
         <div className="newHammer">
           <div className="left-new">
-            <p>Image:</p>
+            <h3>Image:</h3>
           {this.state.img ? (
               <img src={img} alt="oops" />
             ) : (
+              
               <Dropzone
                 onDropAccepted={this.getSignedRequest}
                 style={{
@@ -227,7 +186,7 @@ class NewHammer extends Component {
                   width: 200,
                   height: 200,
                   borderWidth: 7,
-                  marginTop: 100,
+                  marginTop: 10,
                   borderColor: "rgb(102, 102, 102)",
                   borderStyle: "dashed",
                   borderRadius: 5,
@@ -238,15 +197,14 @@ class NewHammer extends Component {
                 }}
                 accept="image/*"
                 multiple={false}
-              >
+                >
                 {this.state.isUploading ? (
                   <GridLoader />
-                ) : (
-                  <p>Drop File or Click Here</p>
-                )}
+                  ) : (
+                    <p>Drop File or Click Here</p>
+                    )}
               </Dropzone>
             )}
-            
           </div>
           <div className="right-new">
             <p>
@@ -254,7 +212,7 @@ class NewHammer extends Component {
               <input
                 type="text"
                 placeholder="Name"
-                onChange={e => this.handleName(e)}
+                onChange={e => this.handleChange('item_name', e.target.value)}
               />
             </p>
             <p>
@@ -262,7 +220,7 @@ class NewHammer extends Component {
               <input
                 type="number"
                 placeholder="Price"
-                onChange={e => this.handlePrice(e)}
+                onChange={e => this.handleChange('price', e.target.value)}
               />
             </p>
             <p>
@@ -270,7 +228,7 @@ class NewHammer extends Component {
               <input
                 type="number"
                 placeholder="Weight"
-                onChange={e => this.handleWeight(e)}
+                onChange={e => this.handleChange('weight', e.target.value)}
               />
               lbs.
             </p>
@@ -279,7 +237,7 @@ class NewHammer extends Component {
               <input
                 type="number"
                 placeholder="Length"
-                onChange={e => this.handleLength(e)}
+                onChange={e => this.handleChange('length', e.target.value)}
               />
               in.
             </p>
@@ -288,17 +246,19 @@ class NewHammer extends Component {
               <input
                 type="text"
                 placeholder="Material"
-                onChange={e => this.handleMaterial(e)}
+                onChange={e => this.handleChange('material', e.target.value)}
               />{" "}
             </p>
             <p>War-Hammer Description:</p>
             <textarea
               placeholder="Description"
-              onChange={e => this.handleDescription(e)}
+              onChange={e => this.handleChange('description', e.target.value)}
               onKeyPress = {this.handleKeyPress}
             ></textarea>
+            <br/>
           </div>
         </div>
+        <br/>
         <div className="new-buttons">
           <Link to="/my-profile">
             {" "}
@@ -306,7 +266,7 @@ class NewHammer extends Component {
           </Link>
           <button onClick={() => this.addHammer()}>Add New Hammer</button>
         </div>
-      </>
+      </div>
     );
   }
 }
