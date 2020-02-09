@@ -83,19 +83,18 @@ class Header extends Component {
       });
     }
   }
-  goHome() {
-    this.props.history.push("/");
-  }
 
   render() {
     return (
       <header>
         <div className="title">
+          <Link to = '/'>
           <img
             className="logo"
             src="http://icons.iconarchive.com/icons/google/noto-emoji-objects/256/62957-hammer-and-pick-icon.png"
             alt="oops"
-          />
+            />
+            </Link>
           <h1>WARHAMMERS-R-US</h1>
 
           <Link to="/login">

@@ -20,6 +20,7 @@ header {
   color: white;
   font-size: 100%;
 }
+
 .logo {
   max-width: 4vw;
   max-height: 4vh;
@@ -98,6 +99,7 @@ header {
     width: 30px;
     height: 2px;
     background: white;
+    z-index: 3;
   }
 }
 @media(min-width: 426px){
