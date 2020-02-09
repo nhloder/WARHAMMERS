@@ -3,7 +3,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 // import { StripeProvider, Elements } from "react-stripe-elements";
 import StripeForm from "./StripeForm";
-import "./../style/cssFiles/cart.css";
+import "./cart.css";
 
 class Cart extends Component {
   constructor(props) {
@@ -78,17 +78,6 @@ class Cart extends Component {
       return sub
   }
 
-  // newTotal(){
-  //   const userCart = this.state
-  //   const arr = []
-  //   // for (let i = 0; i < userCart.length;i++){
-  //     for (let prop in userCart){
-  //     console.log(`hit, ${userCart.price}`);
-  //     }
-  //   // }
-
-  // }
-
   product(product_id) {
     this.props.history.push(`/one-hammer/${product_id}`);
   }
@@ -142,10 +131,6 @@ class Cart extends Component {
     });
   }
 
-  do() {
-    console.log("hit");
-  }
-
   render() {
     const { userCart, userData, price } = this.state;
     const cartData = userCart.map(cart => {
@@ -193,7 +178,6 @@ class Cart extends Component {
     return (
       <>
         <div className="upperCart">
-          {/* {this.total()} */}
           <div className="cart-leftbit">
             <img
               src={userData.profile_pic}
@@ -204,9 +188,6 @@ class Cart extends Component {
           </div>
           <div className="cart-rightbit">
             <h2>Your total is ${price}</h2>
-            {/* <button className="checkout" onClick={() => this.toggler()}>
-              Checkout
-            </button> */}
             <StripeForm 
             name={this.state.userData.username} 
             price={price} 

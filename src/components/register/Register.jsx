@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import Dropzone from "react-dropzone";
 import { GridLoader } from "react-spinners";
 import { v4 as randomString } from "uuid";
-import "./../style/cssFiles/register.css";
+import "./register.css";
 
 class Register extends Component {
   constructor(props) {

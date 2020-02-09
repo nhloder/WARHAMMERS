@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import "./../style/cssFiles/oneHammer.css";
+import "./oneHammer.css";
 
 class OneHammer extends Component {
   constructor(props) {

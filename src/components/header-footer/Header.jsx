@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-// import Nav from "./Nav";
-import "../cssFiles/header.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
+import "./header.css";
 
 class Header extends Component {
   constructor(props) {
@@ -102,9 +101,7 @@ class Header extends Component {
           <Link to="/login">
           <button className="toggle-button" >
             <div className="toggle-button__line" />
-
             <div className="toggle-button__line" />
-
             <div className="toggle-button__line" />
           </button>
             </Link>

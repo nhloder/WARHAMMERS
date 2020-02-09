@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import Dropzone from "react-dropzone";
 import { GridLoader } from "react-spinners";
 import { v4 as randomString } from "uuid";
-import "./../style/cssFiles/register.css";
+import "./../register/register.css";
 
 class EditProfile extends Component {
   constructor(props) {
@@ -215,7 +215,7 @@ class EditProfile extends Component {
             />
             </div>
             ) : (
-              <div className="rightbox">
+              <div className="rightBox">
                 <button className="loginButton" onClick = {() => this.nvm()}>NeverMind</button>
               <Dropzone
                 onDropAccepted={this.getSignedRequest}

@@ -65,6 +65,8 @@
 .profile-cart{
   min-height: 40px;
   min-width: 50px;
+  max-width: 15%;
+  max-height: 15%;
   border-radius: 48%;
   border: solid 4px;
   border-color:grey;

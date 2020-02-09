@@ -4,7 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { connect } from "react-redux";
 import { setUsername } from "../../dux/reducer";
-import "./../style/cssFiles/login.css";
+import "./login.css";
 
 class Login extends Component {
   constructor(props) {

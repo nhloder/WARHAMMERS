@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { v4 as randomString } from 'uuid';
 import Dropzone from 'react-dropzone';
 import { GridLoader } from 'react-spinners';
-import "./../style/cssFiles/newHammer.css";
+import "./newHammer.css";
 
 class NewHammer extends Component {
   constructor(props) {

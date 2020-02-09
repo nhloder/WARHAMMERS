@@ -1,8 +1,7 @@
 import React from "react";
 import "./App.css";
 import routes from "./routes";
-import Header from "./components/style/OmniPresent/Header";
-// import Footer from './components/style/OmniPresent/Footer';
+import Header from "./components/header-footer/Header";
 
 function App() {
   return (

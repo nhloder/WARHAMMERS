@@ -35,8 +35,8 @@ header {
 }
 .profilePicHead {
   border-radius: 50%;
-  max-width: 4vw;
-  max-height: 100%;
+  max-width: 3vw;
+  max-height: 50%;
   margin-right: 10px;
 }
 .bar{
@@ -91,14 +91,17 @@ header {
     padding: 0;
     box-sizing: border-box;
   }
-  
   .toggle-button:focus {
     outline: none;
   }
-  
   .toggle-button__line {
     width: 30px;
     height: 2px;
     background: white;
   }
+}
+@media(min-width: 426px){
+.toggle-button{
+  display: none;
+}
 }

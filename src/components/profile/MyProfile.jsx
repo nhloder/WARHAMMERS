@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
-import "./../style/cssFiles/myProfile.css";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getUser, setUsername } from "../../dux/reducer";
+import "./myProfile.css";
 
 class MyProfile extends Component {
   constructor(props) {

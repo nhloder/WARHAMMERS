@@ -2,24 +2,16 @@ import React from "react";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import Swal from "sweetalert2";
-// import "./styles.css";
+import './stripeForm.css'
 
 function StripeForm(props) {
-  const [product] = React.useState({
-    price: props.price
-  });
-
-  //   function useEffect(() => {
-  //     setProductState(props);
-  // }, [props])
+  // const [product] = React.useState({
+  //   price: props.price
+  // });
 
   async function handleToken(token, addresses) {
     const response = await axios.post("/checkout", { token, product: props.price });
     const { status } = response.data;
-    console.log("Response:", response.data);
-    console.log("product", product);
-
-    console.log("props", props);
 
     if (status === "success") {
       Swal.fire({

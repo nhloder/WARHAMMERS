@@ -1,8 +1,8 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Dash from "./components/dash/Dash";
-import Login from "./components/profile/Login";
-import Register from "./components/profile/Register";
+import Login from "./components/login/Login";
+import Register from "./components/register/Register";
 import EditProfile from "./components/profile/EditProfile";
 import Profile from "./components/profile/Profile";
 import NewHammer from "./components/products/NewHammer";

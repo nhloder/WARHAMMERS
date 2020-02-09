@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import "../style/cssFiles/dash.css";
-// import Footer from "../style/OmniPresent/Footer";
+import "./dash.css";
 
 class Dash extends Component {
   constructor() {
