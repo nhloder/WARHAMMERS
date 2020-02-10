@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import "./header.css";
+import SideDrawer from '../side-drawer/SideDrawer';
 
 class Header extends Component {
   constructor(props) {
@@ -26,7 +27,6 @@ class Header extends Component {
         id: res.data.id,
         authenticated: true
       });
-      // console.log(res.data);
     });
   }
 
@@ -88,22 +88,23 @@ class Header extends Component {
     return (
       <header>
         <div className="title">
-          <Link to = '/'>
-          <img
-            className="logo"
-            src="http://icons.iconarchive.com/icons/google/noto-emoji-objects/256/62957-hammer-and-pick-icon.png"
-            alt="oops"
+          <Link to="/">
+            <img
+              className="logo"
+              src="http://icons.iconarchive.com/icons/google/noto-emoji-objects/256/62957-hammer-and-pick-icon.png"
+              alt="oops"
             />
-            </Link>
+          </Link>
           <h1>WARHAMMERS-R-US</h1>
 
-          <Link to="/login">
-          <button className="toggle-button" >
+          <button
+            className="toggle-button"
+            onClick={this.props.drawerClickHandler}
+          >
             <div className="toggle-button__line" />
             <div className="toggle-button__line" />
             <div className="toggle-button__line" />
           </button>
-            </Link>
         </div>
         <nav className="bar">
           <Link to="/">
@@ -144,6 +145,7 @@ class Header extends Component {
             </p>
           </div>
         ) : null}
+      
       </header>
     );
   }
