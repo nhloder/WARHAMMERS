@@ -1,72 +1,96 @@
-.item{
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
+.item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-around;
-	align-items: baseline;
+  align-items: baseline;
   align-content: space-around;
-  margin:10px;
-  
+  margin: 10px;
 }
-.left-dash{
-max-width: 50%;
-}
-.right-dash{
+.left-dash {
   max-width: 50%;
 }
-.right-dash p{
-  font-size:20px;
-  /* font-family: 'Lora', serif; */
+.right-dash {
+  max-width: 50%;
 }
-.profile{
+.right-dash p {
+  font-size: 20px;
+}
+.profile {
   display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-around;
-	align-items: center;
-	align-content: stretch;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: stretch;
   margin-bottom: 3px;
 }
-.profilePic{
+.profilePic {
   min-height: 30px;
   min-width: 40px;
   border-radius: 48%;
   border: solid 4px;
-  border-color:grey;
+  border-color: grey;
   max-width: 4vw;
-  max-height: 100%;
+  max-height: 90%;
 }
-.username{
+.username {
   margin: 30px;
   font-size: 20px;
 }
-.itemImg{
+.itemImg {
   min-width: 60%;
   min-height: 60%;
   max-width: 90%;
   max-height: 90%;
   border: solid 5px;
-  border-color:#32353A;
+  border-color: #32353a;
 }
-.dashButtons{
+.dashButtons {
   display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-around;
-	align-items: center;
+  align-items: center;
   align-content: center;
   width: 100%;
 }
-.dashButtons .dashBut{
-  background-color:#F3DFC1;
+.dashButtons .dashBut {
+  background-color: #f3dfc1;
   font-size: 20px;
   height: 50px;
   margin: 8px;
 }
 
-.adminButt{
+.adminButt {
   background-color: red;
   font-size: 20px;
   height: 50px;
   margin: 8px;
+}
+@media (max-width: 425px) {
+  .item {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: baseline;
+    align-content: space-around;
+    margin: 10px;
+  }
+  .profilePic {
+    min-height: 30px;
+    min-width: 40px;
+    border-radius: 48%;
+    border: solid 4px;
+    border-color: grey;
+    max-width: 20%;
+    max-height: 30%;
+  }
+  .left-dash {
+    max-width: 90%;
+  }
+  .right-dash {
+    max-width: 90%;
+  }
 }

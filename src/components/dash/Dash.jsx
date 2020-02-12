@@ -36,50 +36,48 @@ class Dash extends Component {
         })
       );
   }
- //start of add to cart functionality. 
- //note: this is hour 14 of coding today
+  //start of add to cart functionality.
+  //note: this is hour 14 of coding today
   async addToCart(id) {
-    await 
-    this.setState({
+    await this.setState({
       customer_id: this.state.profileData.id,
       item_id: id,
-      exists:false
+      exists: false
     });
     this.doesItExist();
   }
 
   async doesItExist() {
-    const { customer_id, item_id,} = this.state;
-    await axios.get(`/api/cart/${customer_id}`).then(res => {
-      for (let i = 0; i < res.data.length; i++) {
+    const { customer_id, item_id } = this.state;
+    await axios
+      .get(`/api/cart/${customer_id}`)
+      .then(res => {
+        for (let i = 0; i < res.data.length; i++) {
+          if (this.state.exists === false) {
+            if (res.data[i].item_id === +item_id) {
+              Swal.fire({
+                icon: "warning",
+                title: "Item Already in Cart!",
+                text: `Click on "Cart" in the Navigation bar to access your cart`,
+                confirmButtonText: "Continue",
+                timer: 3500,
+                timerProgressBar: true
+              });
+              this.setState({
+                exists: true
+              });
+            } else if (res.data[i].item_id !== +item_id) {
+              console.log(i, res.data[i].cart_id);
+            }
+          }
+        }
+      })
+      .then(() => {
         if (this.state.exists === false) {
-        if (res.data[i].item_id === +item_id) {
-          Swal.fire({
-            icon: "warning",
-            title: "Item Already in Cart!",
-            text: `Click on "Cart" in the Navigation bar to access your cart`,
-            confirmButtonText: "Continue",
-            timer: 3500,
-            timerProgressBar: true
-          });
-          this.setState({
-            exists: true
-          });
-        } else if (res.data[i].item_id !== +item_id) {
-          console.log(i, res.data[i].cart_id);
+          // console.log(`Don't exist send`);
+          this.makeItGo();
         }
-        }
-      }
-    })
-    .then(() => {
-      if (this.state.exists === false){
-        // console.log(`Don't exist send`);
-        this.makeItGo()
-      }
-    })
-    // .then(()=>{
-    //   this.setState({exists: false})
-    // })
+      });
   }
 
   makeItGo() {
@@ -100,7 +98,7 @@ class Dash extends Component {
       confirmButtonText: "Continue",
       timer: 1500,
       timerProgressBar: true
-    })
+    });
   }
   // end of add to cart functionality
 

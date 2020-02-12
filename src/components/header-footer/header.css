@@ -56,7 +56,7 @@ header {
   margin: 8px;
 }
 
-@media(max-width:425px){
+@media(max-width:1200px){
   header{
     height: 85px;
   }
@@ -67,6 +67,7 @@ header {
     display: none
   }
   .title {
+    width: 90%;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -105,7 +106,7 @@ header {
     background: white;
   }
 }
-@media(min-width: 426px){
+@media(min-width: 1201px){
 .toggle-button{
   display: none;
 }

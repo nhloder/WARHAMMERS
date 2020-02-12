@@ -4,7 +4,6 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import "./header.css";
-import SideDrawer from '../side-drawer/SideDrawer';
 
 class Header extends Component {
   constructor(props) {
