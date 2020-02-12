@@ -20,7 +20,14 @@ header {
   color: white;
   font-size: 100%;
 }
-
+.title-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
 .logo {
   max-width: 4vw;
   max-height: 4vh;
