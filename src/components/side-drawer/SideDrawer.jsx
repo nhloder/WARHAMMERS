@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { withRouter } from 'react-router'
 import axios from "axios";
 import  Swal  from "sweetalert2";
 import "./sideDrawer.css";
@@ -83,6 +84,22 @@ class SideDrawer extends Component {
 
     return (
       <div className={drawerClasses}>
+        {this.state.username ? (
+          <div className="drawer-user">
+            <Link to="/my-profile">
+              <img
+                className="drawer-profilePicHead"
+                src={this.state.profile}
+                alt="oops"
+              />
+            </Link>
+            <p>
+              {" "}
+              Welcome Back: <br />
+              {this.state.username}
+            </p>
+          </div>
+        ) : null}
         <nav className="drawer-bar">
           <Link to="/">
             <button className="drawer-navButtons">Home</button>
@@ -112,25 +129,10 @@ class SideDrawer extends Component {
             </button>
           )}
         </nav>
-        {this.state.username ? (
-          <div className="drawer-user">
-            <Link to="/my-profile">
-              <img
-                className="drawer-profilePicHead"
-                src={this.state.profile}
-                alt="oops"
-              />
-            </Link>
-            <p>
-              {" "}
-              Welcome Back: <br />
-              {this.state.username}
-            </p>
-          </div>
-        ) : null}
+        
       </div>
     );
   }
 }
 
-export default SideDrawer;
+export default withRouter(SideDrawer);

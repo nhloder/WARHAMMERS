@@ -229,10 +229,6 @@ class Profile extends Component {
         <div className="upperStuff">
           <div className="left">
             <img className="userImg" src={userInfo.profile_pic} alt="oops" />
-            <br />
-            <br />
-            <br />
-            <br />
           </div>
           <div className="right">
             <h1>{userInfo.username}</h1>

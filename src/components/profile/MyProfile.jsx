@@ -26,23 +26,21 @@ class MyProfile extends Component {
         this.setState({
           profileData: res.data
         });
-        this.reduxExample(res.data.username)
+        this.reduxExample(res.data.username);
       })
-    .then(
-    this.getUserProducts()
-    )
-    .catch(err => {
-      Swal.fire({
-        icon: "error",
-        title: "something went wrong.",
-        text: err.response.data.message,
-        confirmButtonText: "Continue"
-      }).then(result => {
-        if (result.value) {
-          this.props.history.push("/");
-        }
+      .then(this.getUserProducts())
+      .catch(err => {
+        Swal.fire({
+          icon: "error",
+          title: "something went wrong.",
+          text: err.response.data.message,
+          confirmButtonText: "Continue"
+        }).then(result => {
+          if (result.value) {
+            this.props.history.push("/");
+          }
+        });
       });
-    });
   }
 
   getUserProducts() {
@@ -104,51 +102,52 @@ class MyProfile extends Component {
     this.props.history.push(`/one-hammer/${product_id}`);
   }
 
-  reduxExample(username){
-    this.props.setUsername(username)
+  reduxExample(username) {
+    this.props.setUsername(username);
   }
 
-  do(){
-    console.log('props', this.props.userInfo.username);
+  do() {
+    console.log("props", this.props.userInfo.username);
   }
   async addToCart(id) {
-    await 
-    this.setState({
+    await this.setState({
       customer_id: this.state.profileData.id,
       item_id: id,
-      exists:false
+      exists: false
     });
     this.doesItExist();
   }
 
   async doesItExist() {
-    const { customer_id, item_id,} = this.state;
-    await axios.get(`/api/cart/${customer_id}`).then(res => {
-      for (let i = 0; i < res.data.length; i++) {
+    const { customer_id, item_id } = this.state;
+    await axios
+      .get(`/api/cart/${customer_id}`)
+      .then(res => {
+        for (let i = 0; i < res.data.length; i++) {
+          if (this.state.exists === false) {
+            if (res.data[i].item_id === +item_id) {
+              Swal.fire({
+                icon: "warning",
+                title: "Item Already in Cart!",
+                text: `Click on "Cart" in the Navigation bar to access your cart`,
+                confirmButtonText: "Continue",
+                timer: 3500,
+                timerProgressBar: true
+              });
+              this.setState({
+                exists: true
+              });
+            } else if (res.data[i].item_id !== +item_id) {
+              console.log(i, res.data[i].cart_id);
+            }
+          }
+        }
+      })
+      .then(() => {
         if (this.state.exists === false) {
-        if (res.data[i].item_id === +item_id) {
-          Swal.fire({
-            icon: "warning",
-            title: "Item Already in Cart!",
-            text: `Click on "Cart" in the Navigation bar to access your cart`,
-            confirmButtonText: "Continue",
-            timer: 3500,
-            timerProgressBar: true
-          });
-          this.setState({
-            exists: true
-          });
-        } else if (res.data[i].item_id !== +item_id) {
-          console.log(i, res.data[i].cart_id);
+          this.makeItGo();
         }
-        }
-      }
-    })
-    .then(() => {
-      if (this.state.exists === false){
-        this.makeItGo()
-      }
-    })
+      });
   }
 
   makeItGo() {
@@ -169,7 +168,7 @@ class MyProfile extends Component {
       confirmButtonText: "Continue",
       timer: 1500,
       timerProgressBar: true
-    })
+    });
   }
 
   render() {
@@ -208,7 +207,12 @@ class MyProfile extends Component {
             >
               More Info
             </button>
-            <button className="dashBut" onClick = {() => this.addToCart(item.product_id)}>Add to cart</button>
+            <button
+              className="dashBut"
+              onClick={() => this.addToCart(item.product_id)}
+            >
+              Add to cart
+            </button>
             <button
               className="dashBut"
               onClick={() => this.editFn(item.product_id)}
@@ -245,10 +249,7 @@ class MyProfile extends Component {
             </div>
           </div>
           <div className="right">
-            
-            <h1>
-              {this.props.userInfo.username}
-            </h1>
+            <h1>{this.props.userInfo.username}</h1>
 
             <article>{profileData.about}</article>
             {/* <button onClick = {() => this.do()}>thing</button> */}
