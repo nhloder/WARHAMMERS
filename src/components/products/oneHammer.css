@@ -53,7 +53,7 @@
 .bottomBit {
   max-width: 90%;
 }
-.cancerLand {
+.commentsSection {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -87,13 +87,13 @@
   width: 100%;
   margin: 6px;
 }
-.commentPoster{
-width: 90%;
-height: 20vh;
+.commentPoster {
+  width: 90%;
+  height: 20vh;
 }
-.commentPoster textarea{
+.commentPoster textarea {
   resize: none;
-  width:95%;
+  width: 95%;
   height: 90%;
   font-size: 18px;
 }
@@ -103,18 +103,35 @@ height: 20vh;
   height: 50px;
   margin: 8px 8px 10px 60%;
 }
-.adminButtContainer{
+.adminButtContainer {
   display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
+  flex-direction: row;
+  flex-wrap: nowrap;
   justify-content: space-around;
-	align-items: center;
+  align-items: center;
   align-content: center;
   width: 100%;
 }
-.adminButt{
-  background-color:red;
+.adminButt {
+  background-color: red;
   font-size: 20px;
   height: 50px;
   margin: 8px;
+}
+@media (max-width: 425px) {
+  .topBit {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: flex-start;
+    min-height: 60vh;
+  }
+  .leftBit {
+    width: 95%;
+  }
+  .rightBit {
+    width: 95%;
+  }
 }

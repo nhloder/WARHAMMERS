@@ -9,8 +9,17 @@
 .name button{
   background-color:#F3DFC1;
   font-size: 3vh;
-  height: 5vh;
-  /* width: 80px; */
+  height: 100%;
   margin: 8px;
   padding: 8px, 8px, 8px, 8px;
+}
+@media(max-width:425px){
+  .name button{
+  font-size: 23px;
+  }
+}
+@media(max-width: 1200px){
+  .name button{
+    font-size: 25px;
+    }
 }

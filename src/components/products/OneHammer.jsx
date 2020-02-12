@@ -233,7 +233,7 @@ class OneHammer extends Component {
     const comments = this.state.commentStuff.map(comment => {
       return (
         <div key={comment.comment_id}>
-          <div className="cancerLand">
+          <div className="commentsSection">
             <div className="commentProfileStuff">
               <img
                 src={comment.profile_pic}

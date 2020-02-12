@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { withRouter } from 'react-router'
+import { withRouter } from "react-router";
 import axios from "axios";
-import  Swal  from "sweetalert2";
+import Swal from "sweetalert2";
 import "./sideDrawer.css";
 
 class SideDrawer extends Component {
@@ -55,24 +55,26 @@ class SideDrawer extends Component {
   holUpProfile() {
     if (this.state.authenticated === true) {
       this.props.history.push(`/my-profile/${this.state.id}`);
+      this.props.click();
     } else {
       Swal.fire({
         icon: "error",
         title: "Please Log In First.",
         confirmButtonText: "Continue"
-      })
+      });
     }
   }
 
   holUpCart() {
     if (this.state.authenticated === true) {
       this.props.history.push(`/cart/${this.state.id}`);
+      this.props.click();
     } else {
       Swal.fire({
         icon: "error",
         title: "Please Log In First.",
         confirmButtonText: "Continue"
-      })
+      });
     }
   }
 
@@ -102,7 +104,12 @@ class SideDrawer extends Component {
         ) : null}
         <nav className="drawer-bar">
           <Link to="/">
-            <button className="drawer-navButtons">Home</button>
+            <button
+              onClick={() => this.props.click()}
+              className="drawer-navButtons"
+            >
+              Home
+            </button>
           </Link>
 
           <button
@@ -121,7 +128,7 @@ class SideDrawer extends Component {
 
           {!this.state.username ? (
             <Link to="/login">
-              <button className="drawer-navButtons">Login</button>
+              <button onClick ={() => this.props.click()} className="drawer-navButtons">Login</button>
             </Link>
           ) : (
             <button onClick={() => this.logout()} className="drawer-navButtons">
@@ -129,7 +136,6 @@ class SideDrawer extends Component {
             </button>
           )}
         </nav>
-        
       </div>
     );
   }
