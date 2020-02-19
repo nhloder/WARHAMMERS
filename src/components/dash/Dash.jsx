@@ -26,7 +26,6 @@ class Dash extends Component {
         this.setState({
           inventory: res.data
         });
-        // console.log(res.data);
       })
       .then(
         axios.get("/api/userInfo").then(res => {

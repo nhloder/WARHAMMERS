@@ -8,8 +8,8 @@ const cartCtrl = require("./controllers/cartController.js");
 const authCtrl = require("./controllers/authController.js");
 const comCtrl = require("./controllers/commentController.js");
 const pdctCtrl = require("./controllers/productController.js");
+const stripeCtrl = require("./controllers/stripeController.js");
 const aws = require("aws-sdk");
-const uuid = require('uuid/v4')
 
 const {
   SERVER_PORT,
@@ -18,10 +18,7 @@ const {
   S3_BUCKET,
   AWS_ACCESS_KEY_ID,
   AWS_SECRET_ACCESS_KEY,
-  WARHAMMERS_APP,
-  STRIPE_SECRET
 } = process.env;
-const stripe = require('stripe')(STRIPE_SECRET)
 // const stripe = new stripeLoader(STRIPE_SECRET);
 
 const app = express();
@@ -125,40 +122,4 @@ app.get("/sign-s3", (req, res) => {
   res.send("Add your Stripe Secret Key to the .require('stripe') statement!");
 });
 
-app.post("/checkout", async (req, res) => {
-  console.log("Request:", req.body);
-
-  let error;
-  let status;
-  try {
-    const { product, token } = req.body;
-    console.log(req.body.product);
-    
-
-    const customer = await stripe.customers.create({
-      email: token.email,
-      source: token.id
-    });
-
-    const idempotency_key = uuid();
-    const charge = await stripe.charges.create(
-      {
-        amount: product * 100,
-        currency: "usd",
-        customer: customer.id,
-        receipt_email: token.email,
-        description: `Purchased the ${product.name}`,
-      },
-      {
-        idempotency_key
-      }
-    );
-    console.log("Charge:", { charge });
-    status = "success";
-  } catch (error) {
-    console.error("Error:", error);
-    status = "failure";
-  }
-
-  res.json({ error, status });
-});
+app.post("/checkout/:id", authCtrl.authenticate, stripeCtrl.stripe, cartCtrl.clear);
