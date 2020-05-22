@@ -7,7 +7,7 @@
   align-content: stretch;
   width:100%;
 }
-.cart-leftbit{
+.cart-leftBit{
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -17,7 +17,7 @@
   width:50%;
   margin:8px;
 }
-.cart-rightbit{
+.cart-rightBit{
   display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;

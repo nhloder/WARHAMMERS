@@ -138,10 +138,10 @@ class Cart extends Component {
         
         <div key={cart.cart_id}>
           <div className="lowerCart">
-            <div className="cart-leftbit">
+            <div className="cart-leftBit">
               <img
                 src={cart.img}
-                alt="Theres Nothing here"
+                alt="Theres nothing here"
                 className="itemImg"
               />
             </div>
@@ -178,7 +178,7 @@ class Cart extends Component {
     return (
       <>
         <div className="upperCart">
-          <div className="cart-leftbit">
+          <div className="cart-leftBit">
             <img
               src={userData.profile_pic}
               alt="no profile"
@@ -186,7 +186,7 @@ class Cart extends Component {
             />
             <h1> {userData.username}'s Cart: </h1>
           </div>
-          <div className="cart-rightbit">
+          <div className="cart-rightBit">
             <h2>Your total is ${price}</h2>
             <StripeForm 
             name={this.state.userData.username} 
